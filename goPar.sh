@@ -131,7 +131,7 @@ else
     stage4options=$stage4options"   "
 fi
 if [ $st4code -eq 2 ]; then
-    stage4options=$stage4options" -DR_Algorithm=Method5 "
+    stage4options=$stage4options" -DR_Algorithm=Method5t "
 fi
 if [ $st4code -eq 4 ]; then
     stage4options=$stage4options" -DR_Algorithm=Method6 "
