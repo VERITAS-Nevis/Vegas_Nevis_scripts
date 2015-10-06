@@ -44,7 +44,8 @@ epoch=${stcode:7:1}
 
 vegas=/a/home/tehanu/ap3115/software/veritas/vegas-v$version
 
-suffix=${suffix} #default is "_"
+suffix="disp_old"  #default is "_"
+
 echo ==============================================================
 date
 echo   Server         = $server
@@ -132,7 +133,7 @@ else
     stage4options=$stage4options"   "
 fi
 if [ $st4code -eq 2 ]; then
-    stage4options=$stage4options" -DR_Algorithm=Method5t "
+    stage4options=$stage4options" -DR_Algorithm=Method5 "
 fi
 if [ $st4code -eq 4 ]; then
     stage4options=$stage4options" -DR_Algorithm=Method6 "
