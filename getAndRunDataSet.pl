@@ -52,32 +52,32 @@ $nServ = 3;
 for $server (@servers) {
     $raw1 = "/a/data/".$server."/Raw/Flasher";
     unless ( -d $raw1 ) {
-	mkdir $raw1 or die "Cannot create directory $raw1";
+	mkdir -p $raw1 or die "Cannot create directory $raw1";
     }
     @fraws = ( @fraws, $raw1 );
     $out1 = "/a/data/".$server."/".$ENV{'USER'}."/Flasher/".$version;
     unless ( -d $out1 ) {
-	mkdir $out1 or die "Cannot create directory $out1: \'$!\'";
+	mkdir -p $out1 or die "Cannot create directory $out1: \'$!\'";
     }
     unless ( -d "$out1/Log" ) {
-	mkdir "$out1/Log" or die "Cannot create directory $out1/Log: \'$!\'";
+	mkdir -p "$out1/Log" or die "Cannot create directory $out1/Log: \'$!\'";
     }
     @fouts = ( @fouts, $out1 );
     $raw1 = "/a/data/".$server."/Raw/".$sourcename;
     unless ( -d $raw1 ) {
-	mkdir $raw1 or die "Cannot create directory $raw1";
+	mkdir -p $raw1 or die "Cannot create directory $raw1";
     }
     @draws = ( @draws, $raw1 );
     $out1 = "/a/data/".$server."/".$ENV{'USER'}."/".$sourcename;
     unless ( -d $out1 ) {
-	mkdir $out1 or die "Cannot create directory $out1";
+	mkdir -p $out1 or die "Cannot create directory $out1";
     }
     $out1 = "/a/data/".$server."/".$ENV{'USER'}."/".$sourcename."/".$version;
     unless ( -d $out1 ) {
-	mkdir  $out1 or die "Cannot create directory $out1";
+	mkdir -p $out1 or die "Cannot create directory $out1";
     }
     unless ( -d "$out1/Log" ) {
-	mkdir "$out1/Log" or die "Cannot create directory $out1/Log";
+	mkdir -p "$out1/Log" or die "Cannot create directory $out1/Log";
     }
     @douts = ( @douts, $out1 );
 }
@@ -85,13 +85,13 @@ for $server (@servers) {
 # Make sure critical directories exist.
 $out1 = "/data/".$ENV{'USER'}."/".$sourcename;
 unless ( -d $out1 ) {
-    mkdir $out1 or die "Cannot create directory $out1";
+    mkdir -p  $out1 or die "Cannot create directory $out1";
 }
 unless ( -d $lndir ) {
-    mkdir  $lndir or die "Cannot create directory $lndir";
+    mkdir -p  $lndir or die "Cannot create directory $lndir";
 }
 unless ( -d "$lndir/Log" ) {
-    mkdir "$lndir/Log" or die "Cannot create directory $lndir/Log";
+    mkdir -p "$lndir/Log" or die "Cannot create directory $lndir/Log";
 }
 
 
