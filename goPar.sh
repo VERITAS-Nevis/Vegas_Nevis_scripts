@@ -231,9 +231,7 @@ if [ $st4code -gt 0 ]; then
     if [ $st4cuts -eq 0 -o $st4cuts -eq 3 ]; then
 	echo Running Stage 4 with Soft Cuts...
 	cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-soft${HFitCuts}${suffix}.root
-	$vegas/bin/vaStage4.2 $stage4options $stage4optionsSoft -table $stage4table -save_config=$st4cfg
-  -save_cuts=$st4cut $outdir/${dataRun}s4-soft${HFitCuts}${suffix}.root  >&
-  $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix}.log
+	$vegas/bin/vaStage4.2 $stage4options $stage4optionsSoft -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-soft${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix}.log
 	cat $st4cfg >> $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix}.log
 	rm $st4cfg
         
