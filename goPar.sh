@@ -44,7 +44,7 @@ epoch=${stcode:7:1}
 
 vegas=/a/home/tehanu/ap3115/software/veritas/vegas-v$version
 
-suffix="disp_old"  #default is "_"
+suffix="-disp_old"  #default is "_"
 
 echo ==============================================================
 date
