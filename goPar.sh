@@ -44,7 +44,7 @@ epoch=${stcode:7:1}
 
 vegas=/a/home/tehanu/ap3115/software/veritas/vegas-v$version
 
-suffix="-geo"  #default is "_"
+suffix="-disp_new"  #default is "_"
 
 echo ==============================================================
 date
@@ -318,8 +318,8 @@ if [ $st5comcode -gt 0 ]; then
     rm $st5cfg
     cat $st5cut >> $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
     rm $st5cut
-    ln -f -s $outdir/${dataRun}s5-med${HFitCuts}-com.root $lndir/${dataRun}s5-med${HFitCuts}-com${suffix}.root
-    ln -f -s $outdir/Log/log${dataRun}s5-med${HFitCuts}-com.log $lndir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
+    ln -f -s $outdir/${dataRun}s5-med${HFitCuts}-com${suffix}.root $lndir/${dataRun}s5-med${HFitCuts}-com${suffix}.root
+    ln -f -s $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log $lndir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
 fi
 
 

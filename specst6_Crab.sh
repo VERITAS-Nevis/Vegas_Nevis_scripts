@@ -24,18 +24,19 @@ echo
 echo
 
 $vroot/bin/vaStage6 \
-    -OverrideEACheck=1   -S6A_Batch=0 \
-    -EA_UpdateModifiedEffectiveArea=1 -EA_RealSpectralIndex=-2.4 \
+    -OverrideEACheck=1   -S6A_Batch=1 \
+    -EA_UpdateModifiedEffectiveArea=0 -EA_RealSpectralIndex=-2.4 \
     -EA_WindowSizeForNoise=7 \
-    -S6A_ReadFromStage4=0 -S6A_ReadFromStage5Combined=0 \
-    -S6A_Spectrum=1 \
-    -S6A_UpperLimit=1 -UL_MinEnergy=0.3 \
+    -S6A_ReadFromStage4=true -S6A_ReadFromStage5Combined=1 \
+    -S6A_Spectrum=0 \
+    -S6A_UpperLimit=0 \
     -SP_EnergyBinning=4 \
     -SP_ForceFitRange=0 \
     -SP_SpectrumFitFunc=POWERLAW \
     -SP_IntegralFluxEmin=0.2 \
     -S6A_ConfigDir=$CONFDIR -S6A_OutputFileName=res_$LOGFILE \
     -S6A_ExcludeSource=1 -S6A_SourceExclusionRadius=0.3 \
+    -TelCombosToDeny=ANY2\
     -S6A_RingSize=0.1 \
     -S6A_StarExclusionBMagLimit=6 \
     -S6A_StarExclusionRadius=0 \
