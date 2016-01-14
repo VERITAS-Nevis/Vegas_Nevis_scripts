@@ -4,6 +4,9 @@ runlist=$1
 sourcename=$2
 suffix=$3
 
+#bin_range="_0_3_"
+bin_range=""
+
 #Effective Areas:
 
 #V5 geo Winter Med
@@ -25,14 +28,18 @@ cuts=(med-com)
 while read line           
 do           
     for cut in ${cuts[*]}; do
-        touch $runlistdir/$line-${cut}-${suffix}.txt
-        find -L ${dir} -maxdepth 1 -iname "*${line}*s5*${cut}*${suffix}*" > $runlistdir/$line-${cut}-${suffix}.txt 
-        echo "[EA ID: 0]" >> $runlistdir/$line-${cut}-${suffix}.txt
-        echo "${EA}" >> $runlistdir/$line-${cut}-${suffix}.txt
-        echo "[/EA ID: 0]" >>$runlistdir/$line-${cut}-${suffix}.txt
-        echo "[CONFIG ID: 0]" >> $runlistdir/$line-${cut}-${suffix}.txt
-        cat /a/home/tehanu/dribeiro/Analysis/Cuts/st5${cut}.cut >> $runlistdir/$line-${cut}-${suffix}.txt
-        echo "[/CONFIG ID: 0]" >>$runlistdir/$line-${cut}-${suffix}.txt
+        touch $runlistdir/$line-${cut}-${suffix}${bin_range}.txt
+        find -L ${dir} -maxdepth 1 -iname "*${line}*s5*${cut}*${suffix}*" > $runlistdir/$line-${cut}-${suffix}${bin_range}.txt 
+        echo "[EA ID: 0]" >> $runlistdir/$line-${cut}-${suffix}${bin_range}.txt
+        echo "${EA}" >> $runlistdir/$line-${cut}-${suffix}${bin_range}.txt
+        echo "[/EA ID: 0]" >>$runlistdir/$line-${cut}-${suffix}${bin_range}.txt
+        echo "[CONFIG ID: 0]" >> $runlistdir/$line-${cut}-${suffix}${bin_range}.txt
+        echo "S6A_RingSize 0.4" >> $runlistdir/$line-${cut}-${suffix}${bin_range}.txt 
+        echo "RBM_SearchWindowSqCut 0.16" >> $runlistdir/$line-${cut}-${suffix}${bin_range}.txt 
+        #echo "EnergyLower 0" >> $runlistdir/$line-${cut}-${suffix}${bin_range}.txt 
+        #echo "EnergyUpper 3500" >> $runlistdir/$line-${cut}-${suffix}${bin_range}.txt 
+        cat /a/home/tehanu/dribeiro/Analysis/Cuts/st5${cut}.cut >> $runlistdir/$line-${cut}-${suffix}${bin_range}.txt
+        echo "[/CONFIG ID: 0]" >>$runlistdir/$line-${cut}-${suffix}${bin_range}.txt
     done
 done <$runlist
 

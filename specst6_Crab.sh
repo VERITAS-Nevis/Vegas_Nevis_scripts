@@ -35,16 +35,14 @@ $vroot/bin/vaStage6 \
     -SP_SpectrumFitFunc=POWERLAW \
     -SP_IntegralFluxEmin=0.2 \
     -S6A_ConfigDir=$CONFDIR -S6A_OutputFileName=res_$LOGFILE \
-    -S6A_ExcludeSource=1 -S6A_SourceExclusionRadius=0.3 \
-    -TelCombosToDeny=ANY2\
-    -S6A_RingSize=0.1 \
+    -S6A_ExcludeSource=1 -S6A_SourceExclusionRadius=0.4 \
     -S6A_StarExclusionBMagLimit=6 \
+    -TelCombosToDeny=ANY2 \
     -S6A_StarExclusionRadius=0 \
     -S6A_NumRings=0 \
     -EC_maxPsiSq=2.89 \
     -S6A_DoRelativeExposure=0 \
     -S6A_SuppressRBMFinalStage=0 \
-    -RBM_SearchWindowSqCut=0.01 \
     -RBM_HistoBinSizeInDegrees=0.025 \
     -WA_UseGeneralizedLiMa=0 \
     -WA_Theta2HistNbins=400 \

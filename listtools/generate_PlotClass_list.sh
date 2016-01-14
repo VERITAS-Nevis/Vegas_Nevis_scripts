@@ -14,12 +14,12 @@ cut=med
 while read line           
 do           
         find -L ${datadir}/ -maxdepth 1 -iname "*${line}*s2*" -exec readlink {} \; >> ${classes_runlist} 
-        echo " " >> ${classes_runlist}
+        echo "" >> ${classes_runlist}
         find -L ${datadir}/ -maxdepth 1 -iname "*${line}*s5*${cut}*${suffix}*" -exec readlink {} \; >> ${classes_runlist} 
-        echo " " >> ${classes_runlist}
+        echo "" >> ${classes_runlist}
         find -L ${st6dir}/ -maxdepth 1 -iname "*${line}*${cut}*${suffix}*.root" >> ${classes_runlist} 
-        echo " " >> ${classes_runlist}
-        echo " " >> ${classes_runlist}
+        echo "" >> ${classes_runlist}
+        echo "" >> ${classes_runlist}
 done <$runlist
 
 
