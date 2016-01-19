@@ -117,6 +117,7 @@ $naptime=2;
 $iii=0;
 while (<LIST>)
 {
+## In loop for each run: for a given list type (if statement for each) , get the groupid and flasherRun numbers with the mysql commands
     if ( $listtype == 0 ) {
 	$dataRun = $_;
 	sleep $naptime;
@@ -137,12 +138,14 @@ while (<LIST>)
     chomp( $flasherRun );
     @druns = ( @druns, $dataRun );
     @fruns = ( @fruns, $flasherRun );
+#Organize run directories within proper server    
     $serverIndex = $iii % $nServ;
     $drawfile=$draws[$serverIndex]."/".$dataRun.".cvbf";
     @drawfiles = ( @drawfiles, $drawfile );
     $tdrawfile=$rawtmpdir."/".$dataRun.".cvbf";
     @tdrawfiles = ( @tdrawfiles, $tdrawfile );
 
+# Get dates for run and Flashers
     sleep $naptime;
     $dDate=`mysql -h $dbhost -u readonly -D VERITAS --execute=\"select db_start_time from tblRun_Info where run_id=$dataRun\" | xargs echo -n  | cut -d " " -f 2`;
     chomp( $dDate );
@@ -155,6 +158,7 @@ while (<LIST>)
     chomp( $fDate );
     $flasherDate = substr($fDate,0,4).substr($fDate,5,2).substr($fDate,8,2);
 
+# Organize paths to flasher and raw files/temps to directories, with the right filename
     $trawfile=$rawtmpdir."/".$flasherRun.".cvbf";
     @trawfiles = ( @trawfiles, $trawfile );
 
@@ -170,6 +174,7 @@ while (<LIST>)
     $darchivefile="/veritas/data/d".$dataDate."/".$dataRun.".cvbf";
     @darchivefiles = ( @darchivefiles, $darchivefile );
 
+# Use run date from above to set the epoch and atm for this run (not filling an array, instead used to set the lookup tables)
     $atm = "20";
     $epoch = "xx";
     $offs = "none";
@@ -193,6 +198,8 @@ while (<LIST>)
     }
     elsif ( $offsets eq 'all' ) {
 	$offs = "allOffsets";
+
+# Extra bits need for some tables, based on date
 	if ( $dataDate > 20120801 ) { # fix for some V6 tables
 	    $extrabit = "_noise150fix";
 	}
@@ -200,6 +207,8 @@ while (<LIST>)
             $extrabit = "_v1";
         }
     }
+# Set lookup tables, first checking what kind of analysis specific in command
+ 
     if ( (substr($stagecode,1,1) eq '2') || ( substr($stagecode,1,1) eq '4') ) { # HFit lookup tables
 	$alt = "/a/data/tehanu/ap3115/LTs/vegas-2.5/lt_Oct2012_".$epoch."_ATM".$atm."_7samples_hfit_vegasv251_050wobb_LZA.root";
     }
@@ -227,8 +236,12 @@ while (<LIST>)
 $ntot = $iii; # total number of runs in list.
 print "Dealing with ".$iii." runs\n";
 
+###############################################################################
+###############################################################################
 # Loop over flasher runs, checking whether they are already available or need to be downloaded
 # or processed. As needed, download and/or process them.
+###############################################################################
+###############################################################################
 
 for ( $i=0; $i<$ntot; $i++ ) {
     $si = $i % $nServ; # server index - brief name
@@ -359,9 +372,13 @@ for ( $i=0; $i<$ntot; $i++ ) {
 
 #exit 0;
 
+###############################################################################
+###############################################################################
 # Download data runs and submit their analysis jobs.
 # Loop over data runs, checking whether they are already available or need to be downloaded.
 # If needed, download them. Then process them. 
+###############################################################################
+###############################################################################
 
 for ( $i=0; $i<$ntot; $i++ ) {
     $si = $i % $nServ; # server index - brief name
