@@ -109,7 +109,7 @@ echo Stage2 options = $stage2options
 #stage4optionsMed=" -cuts $CUTSDIR/med.cut -LTM_WindowSizeForNoise=7 "
 
 
-stage4options="-G_GlobalProgressPrintFrequency=50000 -LTM_WindowSizeForNoise=7 -DR_DispTable=$disptable -OverrideLTCheck=0 "
+stage4options="-G_SimulationMode=1 -G_GlobalProgressPrintFrequency=50000 -LTM_WindowSizeForNoise=7 -DR_DispTable=$disptable -OverrideLTCheck=0 "
 #if [ $epoch -eq 4 ]; then
 #    if [ $dataRun -lt 36000 ]; then
 #        stage4options=$stage4options" -TelCombosToDeny=ANY2 "
@@ -180,7 +180,8 @@ stage5options="-G_GlobalProgressPrintFrequency=50000 \
     -Method=stereo \
     -RemoveCutEvents=1 \
     $timeCut \
-    -SaveDiagnostics=1 "
+    -SaveDiagnostics=1 \
+    -G_SimulationMode=1"
 #    -MeanScaledWidthLower=-1 \
 #    -MeanScaledWidthUpper=10 \
 #    -MeanScaledLengthLower=-1 \

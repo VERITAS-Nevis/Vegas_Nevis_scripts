@@ -6,11 +6,11 @@ use File::Copy;
 # $runlist = $ARGV[0];     # Run list to analyze
 # $listtype = $ARGV[1];    # Controls if run list holds single column of data
                          # runs (0) or two columns: data run / flasher run (1)
-$version = $ARGV[2];     # vegas version to use, assumes prefix "vegas-"
-$sourcename = $ARGV[3];  # Name of the source we're analyzing
+$version = $ARGV[0];     # vegas version to use, assumes prefix "vegas-"
+$sourcename = $ARGV[1];  # Name of the source we're analyzing
 #$options = $ARGV[3];     # Name of file listing key options for analysis
 # $offsets = $ARGV[4];     # LT offsets available: "050" or "all"
-$stagecode = $ARGV[5];   # Stages to run the analysis on
+$stagecode = $ARGV[2];   # Stages to run the analysis on
 #  The stage code string is currently 8 characters long
 #  0 - run stage 1? 0=no, 1=yes
 #  1 - run stage 2? 0=no, use existing regular analysis; 1=yes; 2=hfit; 4=no, use existing hfit analysis
@@ -22,11 +22,16 @@ $stagecode = $ARGV[5];   # Stages to run the analysis on
 #  7 - epoch of data 4=V4, 5=V5, 6=V6
                          # 
                          # 
-@epoch=("oa", "na", "ua")
-@wobble=("000", "025", "050", "075", "100", "125", "150", "175", "200")
-@atm=("21", "22")
-@Zenith=("00", "20", "30", "35", "40", "45", "50", "55", "60", "65")
-@noise=("100", "150", "200", "250", "300", "350", "400", "490", "605", "730", "870")
+#@epochs=("oa", "na", "ua");
+@epochs=("ua");
+#@wobbles=("000", "025", "050", "075", "100", "125", "150", "175", "200");
+@wobbles=("000", "025", "050", "075", "100", "125", "150", "175", "200");
+#@atms=("21", "22");
+@atms=("21");
+#@Zeniths=("00", "20", "30", "35", "40", "45", "50", "55", "60", "65");
+@Zeniths=("45", "50", "55", "60", "65");
+#@noises=("100", "150", "200", "250", "300", "350", "400", "490", "605", "730", "870");
+@noises=("350", "400");
 
 $dbhost = $ENV{'VDBHOST'};
 
@@ -69,6 +74,7 @@ for $server (@servers) {
     }
     @fouts = ( @fouts, $out1 );
     $raw1 = "/a/data/".$server."/Raw/".$sourcename;
+    print $raw1."\n";
     unless ( -d $raw1 ) {
 	mkdir -p $raw1 or die "Cannot create directory $raw1";
     }
@@ -118,43 +124,63 @@ unless ( -d "$lndir/Log" ) {
 ## In loop for each run: for a given list type (if statement for each) , get the groupid and flasherRun numbers with the mysql commands
 $naptime=2;
 $iii=0;
+foreach $epoch (@epochs) 
+{
+  foreach $wobble (@wobbles)
+  {
+    foreach $atm (@atms)
+    {
+      foreach $zenith (@Zeniths)
+      {
+        foreach $noise (@noises)
+        {
+        $dataRun="Oct2012_".$epoch."_ATM".$atm."_vegasv250rc5_7samples_".$zenith."deg_".$wobble."wobb_".$noise."noise";
     chomp($dataRun);
     chomp( $flasherRun );
     @druns = ( @druns, $dataRun );
     @fruns = ( @fruns, $flasherRun );
 #Organize run directories within proper server    
     $serverIndex = $iii % $nServ;
-    $drawfile=$draws[$serverIndex]."/".$dataRun.".cvbf";
+    #$draws="/a/data/vetch/Ori/simulation/allSims";
+    $OridRaw="/a/data/vetch/Ori/simulation/allSims";
+    $drawfile=$draws[$serverIndex]."/".$dataRun.".root";
+    $drawfile="/a/data/vetch/Ori/simulation/allSims/".$dataRun.".root";
     @drawfiles = ( @drawfiles, $drawfile );
-    $tdrawfile=$rawtmpdir."/".$dataRun.".cvbf";
+    $tdrawfile=$rawtmpdir."/".$dataRun.".root";
     @tdrawfiles = ( @tdrawfiles, $tdrawfile );
 
 # Organize paths to flasher and raw files/temps to directories, with the right filename
-    $trawfile=$rawtmpdir."/".$flasherRun.".cvbf";
+    $trawfile=$rawtmpdir."/".$flasherRun.".root";
     @trawfiles = ( @trawfiles, $trawfile );
 
-    $frawfile=$fraws[$serverIndex]."/".$flasherRun.".cvbf";
+    $frawfile=$fraws[$serverIndex]."/".$flasherRun.".root";
     @frawfiles = ( @frawfiles, $frawfile );
 
     $foutfile=$fouts[$serverIndex]."/".$flasherRun.".root";
     @foutfiles = ( @foutfiles, $foutfile );
 
-    $farchivefile="/veritas/data/d".$flasherDate."/".$flasherRun.".cvbf";
+    $farchivefile="/veritas/data/d".$flasherDate."/".$flasherRun.".root";
     @farchivefiles = ( @farchivefiles, $farchivefile );
 
-    $darchivefile="/veritas/data/d".$dataDate."/".$dataRun.".cvbf";
+    $darchivefile="/veritas/data/d".$dataDate."/".$dataRun.".root";
     @darchivefiles = ( @darchivefiles, $darchivefile );
 
-
+$extrabit="";
 
 # Extra bits need for some tables, based on date
-	if ( $dataDate > 20120801 ) { # fix for some V6 tables
+  if ( $wobble eq "050" ) { # Choice of offset - only applies to LT
+      $offs = "050wobb";      # at present !!!
+  }
+  else {
+      $offs = "allOffsets";
+	if ( $epoch == "ua" ) { # fix for some V6 tables
 	    $extrabit = "_noise150fix";
 	}
-        elsif ( $dataDate > 20090801 ) { # fix for V5 tables
-            $extrabit = "_v1";
-        }
-    }
+  elsif ( $epoch == "na" ) { # fix for V5 tables
+      $extrabit = "_v1";
+  }
+  }
+
 # Set lookup tables, first checking what kind of analysis specific in command
  
     if ( (substr($stagecode,1,1) eq '2') || ( substr($stagecode,1,1) eq '4') ) { # HFit lookup tables
@@ -175,12 +201,15 @@ $iii=0;
 
     @seri = ( @seri, $iii );
 
+    print $alt."\n";
+    print $adt."\n";
     print $dataRun."\n".$drawfile."\n".$frawfile."\n".
         $iii."\t".$serverIndex."\n\n";
 
     # Increment index
     $iii += 1;
-}
+
+}}}}}
 $ntot = $iii; # total number of runs in list.
 print "Dealing with ".$iii." runs\n";
 
@@ -191,7 +220,6 @@ print "Dealing with ".$iii." runs\n";
 # If needed, download them. Then process them. 
 ###############################################################################
 ###############################################################################
-
 for ( $i=0; $i<$ntot; $i++ ) {
     $si = $i % $nServ; # server index - brief name
     $drun = $druns[$i];
@@ -199,53 +227,60 @@ for ( $i=0; $i<$ntot; $i++ ) {
     # Check if it's already downloaded.
     $foundCVBF = 0;
     for ( $serverIndex=0; $serverIndex<3; $serverIndex++ ) {
-	$check = $draws[$serverIndex]."/".$drun.".cvbf";
+	$check = $OridRaw."/".$drun.".root";
 	print "Checking for ".$check."\n";
 	if ( -e $check ) {
 	    $foundCVBF = 1;
-	    $command="ls -l ".$check;
-	    print $command."\n";
-	    chomp( $fileInfo = `$command` );
-	    @fileInfo = split /\s+/, $fileInfo;
-	    $fileSize = $fileInfo[4];
+	    #$command="ls -l ".$check;
+	    #print $command."\n";
+	    #chomp( $fileInfo = `$command` );
+	    #@fileInfo = split /\s+/, $fileInfo;
+	    #$fileSize = $fileInfo[4];
 	    $si = $serverIndex;
 	    $drawfiles[$i] = $check;
+      $lncommand="ln -f -s $check /a/data/$servers[$serverIndex]/$ENV{'USER'}/${sourcename}/${version}/${drun}s2.root";
+      #print $lncommand."\n";
+      system $lncommand;
+      $lncommand="ln -f -s $check /a/data/tehanu/$ENV{'USER'}/${sourcename}/${version}/${drun}s2.root";
+      #print $lncommand."\n";
+      system $lncommand;
 	    last;
 	} else {
 	    $fileSize = 0;
+      print "file missing \n";
 	}
-	print "  local size = ".$fileSize."\n";
+	#print "  local size = ".$fileSize."\n";
     }
     # Check remote file size
-    $command="bbftp -w 50065 -m -p 1 -u bbftp -V -S -e \"stat ".$darchivefiles[$i].
-	"\" gamma1.astro.ucla.edu";
-    chomp( $answer = `$command` );
-    @answer = split /\s+/, $answer;
-    print "archive size = ".$answer[3];
-    $diff = $fileSize - $answer[3];
-    print "        diff = ".$diff."\n";
+    #$command="bbftp -w 50065 -m -p 1 -u bbftp -V -S -e \"stat ".$darchivefiles[$i].
+	#"\" gamma1.astro.ucla.edu";
+    #chomp( $answer = `$command` );
+    #@answer = split /\s+/, $answer;
+    #print "archive size = ".$answer[3];
+    #$diff = $fileSize - $answer[3];
+    #print "        diff = ".$diff."\n";
     #print $answer."\n";
     # If file sizes don't match, download the file.
-    if ( abs($diff) >= 1 ) {
-	$command="bbftp -w 50065 -V -S -u bbftp -p 12  -e \"get ".$darchivefiles[$i].
-	    " ".$tdrawfiles[$i]."\" gamma1.astro.ucla.edu";
-	print $command."\n";
-	system $command;
-	$command="time -p /usr/local/bin/bbcp $tdrawfiles[$i] $drawfiles[$i]";
-	print "\t".$command."\n";
-	system $command;
-	$command="rm $tdrawfiles[$i]";
-	print "\t".$command."\n";
-	system $command;
-	$command="chown ".$ENV{'USER'}.":veritas ".$drawfiles[$i];
-	print $command."\n";
-	system( $command );
-	$command="chmod ug+rw ".$drawfiles[$i];
-	print $command."\n";
-	system( $command );
-    } else {
-	print "Got it already!\n";
-    }
+    #f ( abs($diff) >= 1 ) {
+	#$command="bbftp -w 50065 -V -S -u bbftp -p 12  -e \"get ".$darchivefiles[$i].
+	 #   " ".$tdrawfiles[$i]."\" gamma1.astro.ucla.edu";
+	#print $command."\n";
+	#system $command;
+	#$command="time -p /usr/local/bin/bbcp $tdrawfiles[$i] $drawfiles[$i]";
+	#print "\t".$command."\n";
+	#system $command;
+	#$command="rm $tdrawfiles[$i]";
+	#print "\t".$command."\n";
+	#system $command;
+	#$command="chown ".$ENV{'USER'}.":veritas ".$drawfiles[$i];
+	#print $command."\n";
+	#system( $command );
+	#$command="chmod ug+rw ".$drawfiles[$i];
+	#print $command."\n";
+	#system( $command );
+  #  } else {
+	#print "Got it already!\n";
+   # }
     # Change file ownership and permissions
     
 #    # Add file to list of running flasher jobs (when will I remove it?)
@@ -274,7 +309,8 @@ for ( $i=0; $i<$ntot; $i++ ) {
     print SCRIPT "RunNumber = $drun\n";
     print SCRIPT "OutDir = $douts[$si]\n";
     print SCRIPT "RawFile = $drawfiles[$i]\n";
-    print SCRIPT "Flasher = $fruns[$i]\n";
+    #print SCRIPT "Flasher = $fruns[$i]\n";
+    print SCRIPT "Flasher = _\n";
     print SCRIPT "RawDir = $draws[$si]\n";
     print SCRIPT "Server = $servers[$si]\n";
     print SCRIPT "LT = $auto_lt[$i]\n";
@@ -285,9 +321,8 @@ for ( $i=0; $i<$ntot; $i++ ) {
     print SCRIPT "User = ".$ENV{'USER'}."\n";
     print SCRIPT "queue 1\n";
     close SCRIPT;
-    #system "condor_submit $runparamscript\n";
+    system "condor_submit $runparamscript\n";
 }
-
 
 
 
