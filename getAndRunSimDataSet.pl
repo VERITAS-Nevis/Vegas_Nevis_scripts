@@ -193,8 +193,8 @@ $extrabit="";
 #	$alt = "/a/data/tehanu/ap3115/LTs/vegas-2.5/lt_Oct2012_ua_ATM22_7samples_vegasv250rc5_050wobb_LZA.root";
 #	$adt = "/a/data/tehanu/ap3115/DTs/vegas-2.5/rc4/dt_Oct2012_ua_ATM22_7samples_vegasv250rc4_050wobb_LZA.root";
     }
-	#$adt = "/a/data/tehanu/humensky/DTs/vegas-2.5/dt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_050wobb_LZA.root";
-  $adt = "/a/data/tehanu/dribeiro/DTs/TMVA_Disp.xml";
+	$adt = "/a/data/tehanu/humensky/DTs/vegas-2.5/dt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_050wobb_LZA.root"; # need this for geo
+  #$adt = "/a/data/tehanu/dribeiro/DTs/TMVA_Disp.xml"; #need this for disp_new
 
     @auto_lt = (@auto_lt, $alt);
     @auto_dt = (@auto_dt, $adt);
