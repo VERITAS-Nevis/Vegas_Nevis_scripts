@@ -44,7 +44,7 @@ epoch=${stcode:7:1}
 
 vegas=/a/home/tehanu/ap3115/software/veritas/vegas-v$version
 
-suffix="-geo"  #default is "_"
+suffix="-disp_new"  #default is "_"
 
 echo ==============================================================
 date
@@ -133,7 +133,7 @@ else
     stage4options=$stage4options"   "
 fi
 if [ $st4code -eq 2 ]; then
-    stage4options=$stage4options" -DR_Algorithm=Method5 " #currently set to '5', meaning disp_old. must reset to '5t' for disp_new 
+    stage4options=$stage4options" -DR_Algorithm=Method5t " #currently set to '5', meaning disp_old. must reset to '5t' for disp_new 
 fi
 if [ $st4code -eq 4 ]; then
     stage4options=$stage4options" -DR_Algorithm=Method6 "

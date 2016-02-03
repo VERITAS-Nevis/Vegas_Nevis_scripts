@@ -222,6 +222,7 @@ print "Dealing with ".$iii." runs\n";
 ###############################################################################
 for ( $i=0; $i<$ntot; $i++ ) {
     $si = $i % $nServ; # server index - brief name
+    print "\n server number: ".$si."\n";
     $drun = $druns[$i];
     print "\n\nData ".$drun."\n";
     # Check if it's already downloaded.
@@ -236,13 +237,15 @@ for ( $i=0; $i<$ntot; $i++ ) {
 	    #chomp( $fileInfo = `$command` );
 	    #@fileInfo = split /\s+/, $fileInfo;
 	    #$fileSize = $fileInfo[4];
-	    $si = $serverIndex;
+	    #$si = $serverIndex;
+      $serverIndex=$si;
 	    $drawfiles[$i] = $check;
+      print "\n".$servers[$si]."\n";
       $lncommand="ln -f -s $check /a/data/$servers[$serverIndex]/$ENV{'USER'}/${sourcename}/${version}/${drun}s2.root";
-      #print $lncommand."\n";
+      print $lncommand."\n";
       system $lncommand;
       $lncommand="ln -f -s $check /a/data/tehanu/$ENV{'USER'}/${sourcename}/${version}/${drun}s2.root";
-      #print $lncommand."\n";
+      print $lncommand."\n";
       system $lncommand;
 	    last;
 	} else {
