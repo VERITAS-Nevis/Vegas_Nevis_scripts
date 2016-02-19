@@ -109,7 +109,7 @@ echo Stage2 options = $stage2options
 #stage4optionsMed=" -cuts $CUTSDIR/med.cut -LTM_WindowSizeForNoise=7 "
 
 
-stage4options="-G_SimulationMode=1 -G_GlobalProgressPrintFrequency=50000 -LTM_WindowSizeForNoise=7 -DR_DispTable=$disptable -OverrideLTCheck=0 "
+stage4options="-G_SimulationMode=1 -G_GlobalProgressPrintFrequency=50000 -LTM_WindowSizeForNoise=7 -DR_DispTable=$disptable -OverrideLTCheck=1"
 #if [ $epoch -eq 4 ]; then
 #    if [ $dataRun -lt 36000 ]; then
 #        stage4options=$stage4options" -TelCombosToDeny=ANY2 "
@@ -160,6 +160,8 @@ echo           Med: = $stage4optionsMed
 echo          Hard: = $stage4optionsHard
 echo          Soft: = $stage4optionsSoft
 
+if [ "$dataRun" -eq "$dataRun" ] 2>/dev/null
+then
 # Set up time cuts
 #    if [ $r5 -eq 1 -o $r6 -eq 1 -o $r7 -eq 1 ]; then
 {
@@ -172,6 +174,9 @@ echo          Soft: = $stage4optionsSoft
     done
 } < $HOME/Analysis/Cuts/timeCuts.txt
 #fi
+else
+  echo "Not Using an interger, maybe running simulations?"
+fi
 
 
 #    -Method=combined \
@@ -203,14 +208,16 @@ fi
 
 # Run Stage 2
 if [ $st2code -eq 1 -o $st2code -eq 2 ]; then
+  if [ "$dataRun" -eq "$dataRun" ] 2>/dev/null
+  then
     # Check for the flasher file and copy it if necessary
     if [ ! -e $flasherFile ] ; then
 
-	cp $cali_dir/$flasherRun.root $flasherFile
+    cp $cali_dir/$flasherRun.root $flasherFile
     fi
     if [ ! -e $flasherFile ] ; then
-	echo "Uhoh! Can't find the flasher file $flasherFile so no point continuing."
-	exit 1
+      echo "Uhoh! Can't find the flasher file $flasherFile so no point continuing."
+      exit 1
     fi
     echo Running stage 2
     date
@@ -220,6 +227,16 @@ if [ $st2code -eq 1 -o $st2code -eq 2 ]; then
     rm $st2cfg
     ln -f -s $outdir/${dataRun}s2.root $lndir/${dataRun}s2.root
     ln -f -s $outdir/Log/log${dataRun}s2.log $lndir/Log/log${dataRun}s2.log
+  else
+    echo Running stage 2 for simulations...
+    date
+    echo "$vegas/bin/vaStage2 -G_SimulationMode=1 $stage2options $rawFile -save_config=$st2cfg $outdir/${dataRun}s2.root >& $outdir/Log/log${dataRun}s2.log"
+    $vegas/bin/vaStage2 -G_SimulationMode=1 $stage2options $rawFile -save_config=$st2cfg $outdir/${dataRun}s2.root >& $outdir/Log/log${dataRun}s2.log
+    cat $st2cfg >> $outdir/Log/log${dataRun}s2.log
+    rm $st2cfg
+    ln -f -s $outdir/${dataRun}s2.root $lndir/${dataRun}s2.root
+    ln -f -s $outdir/Log/log${dataRun}s2.log $lndir/Log/log${dataRun}s2.log
+  fi
 fi
 
 
@@ -245,6 +262,7 @@ if [ $st4code -gt 0 ]; then
     if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
 	echo Running Stage 4 with Medium Cuts...
 	cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root
+	echo "$vegas/bin/vaStage4.2 $stage4options $stage4optionsMed -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix}.log"
 	$vegas/bin/vaStage4.2 $stage4options $stage4optionsMed -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix}.log
 	cat $st4cfg >> $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix}.log
 	rm $st4cfg
