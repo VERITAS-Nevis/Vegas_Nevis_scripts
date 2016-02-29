@@ -6,7 +6,7 @@
 #include <fstream>
 
 using namespace std;
-{
+
 int epochs = 6;
 int wobbles[9] = {0, 25, 50, 75, 100, 125, 150, 175, 200};
 int atms=21;
@@ -17,7 +17,7 @@ char runlistdir[200] = "/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classe
 char cuts[10] = "med-com";
 char suffix[10] = "disp_old";
 
-cout << "loadmacro"<<endl;
+std::cout << "loadmacro"<<endl;
 int error = 0;
 gROOT->ProcessLine(".L /a/home/tehanu/omw2107/classes/vegasAnalysis.cpp");
 if(error!=0)
@@ -29,7 +29,6 @@ else
 { 
   cout << "vegasAnalysis.cpp loaded properly" << endl;
   }
-}
 
 void loop_thru_sims()
 {
