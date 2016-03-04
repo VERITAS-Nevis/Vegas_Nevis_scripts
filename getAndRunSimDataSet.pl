@@ -304,10 +304,11 @@ for ( $i=0; $i<$ntot; $i++ ) {
     {
 	die "Cannot open $runparamscript: $!";
     }
-    print SCRIPT "Requirements = Memory > 1000 && machine == \"$servers[$si].nevis.columbia.edu\"\n";
+    print SCRIPT "Requirements = machine == \"$servers[$si].nevis.columbia.edu\"\n";
     print SCRIPT "output = $douts[$si]/Para_$drun.out\n";
     print SCRIPT "error  = $douts[$si]/Para_$drun.err\n";
     print SCRIPT "log    = $douts[$si]/Para_$drun.log\n";
+    print SCRIPT "Notification = Error\n";
     print SCRIPT "initialdir = $douts[$si]\n";
     print SCRIPT "RunNumber = $drun\n";
     print SCRIPT "OutDir = $douts[$si]\n";

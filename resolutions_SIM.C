@@ -15,11 +15,17 @@ int noises[2]={350, 400};
 
 char runlistdir[200] = "/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes/";
 char cuts[10] = "med-com";
-char suffix[10] = "disp_old";
+char suffix[10] = "disp_new";
 
-cout << "loadmacro"<<endl;
+cout << "LoadMacro"<<endl;
 int error = 0;
-gROOT->ProcessLine(".L /a/home/tehanu/omw2107/classes/vegasAnalysis.cpp");
+//gROOT->ProcessLine(".L /a/home/tehanu/omw2107/classes/vegasAnalysis.cpp");
+//gROOT->LoadClass("/a/home/tehanu/omw2107/classes/vegasAnalysis.cpp");
+gSystem->Load("/a/home/tehanu/omw2107/vegas-2.5.0rc5/macros/rootLib_C.so");
+gROOT->LoadMacro("/a/home/tehanu/omw2107/classes/vegasAnalysis.cpp");
+gROOT->LoadMacro("/a/home/tehanu/omw2107/scripts/computeTrueDisp.cpp");
+gROOT->LoadMacro("/a/home/tehanu/omw2107/scripts/generateRandomIndices.cpp");
+gROOT->LoadMacro("$ROOTSYS/tmva/test/TMVARegGui.C");
 if(error!=0)
 { 
   cout <<"failed"<<endl;
@@ -53,15 +59,15 @@ void loop_thru_sims()
       else if( epochs==5 ){sprintf(epo,"na");}
 
       char dataRun[200];
-      string runlist_file;
+      char runlist_file[200];
       sprintf( dataRun, "Oct2012_%s_ATM%i_vegasv250rc5_7samples_%02ideg_%03iwobb_%03inoise",epo, atms,Zeniths[zenith_i], wobbles[wobble_i], noises[noise_i]);
-      sprintf(runlist_file.c_str(), "%s%s-%s-%s.txt",runlistdir,dataRun,cuts,suffix);
+      sprintf(runlist_file, "%s%s-%s-%s.txt",runlistdir,dataRun,cuts,suffix);
 
       vector <float> bin;
       vector <float> res;
       vector <float> rms;
       fprintf(stdout,"\nSetting up the create_dataAnalysis_object()\n");
-      fprintf(stdout,"%s\n",runlist_file.c_str());
+      fprintf(stdout,"%s\n",runlist_file);
       //sprintf(runlist_file,"/a/home/tehanu/omw2107/results/test.txt");
 
 
@@ -69,7 +75,7 @@ void loop_thru_sims()
 //Check that text file is good, and print out contents to make sure
 ///////
       bool good = 0;
-      ifstream runlist_file_binary(runlist_file.c_str());
+      ifstream runlist_file_binary(runlist_file);
       if (runlist_file_binary.is_open())
       {
         fprintf(stdout,"\n###############################\n");
@@ -84,7 +90,7 @@ void loop_thru_sims()
         string buffer[200];
 	//open text file
 	string line1;
-  char * pathToTextFile = runlist_file.c_str();
+  char * pathToTextFile = runlist_file;
 	ifstream textFile(pathToTextFile);
   bool isSimulationAnalysis;
 
@@ -129,8 +135,6 @@ void loop_thru_sims()
           cout << "ST5 file exists, trying to open it..."<<endl;
           TFile* f = new TFile(buffer.c_str(), "READ");
           cout << "created f"<<endl;
-          TTree * CombineEventsTree= f->Get("SelectedEvents/CombinedEventsTree");
-          
           good=1;
         }
         else {
@@ -152,7 +156,8 @@ void loop_thru_sims()
       if(good)
       {
         cout << "creating object... " << endl;
-        vegasAnalysis *v = new vegasAnalysis(runlist_file.c_str(),999999);
+        fprintf(stdout, "vegasAnalysis *v = new vegasAnalysis(\"%s\",999999);\n", runlist_file);
+        vegasAnalysis *v = new vegasAnalysis(runlist_file,999999);
         if( v->isSimulationAnalysis){
           cout << "object created..." << endl;
           v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");

@@ -55,6 +55,8 @@ foreach $epoch (@epochs)
   }
 }
 
+#below, remove =for comment and =cut blocks to make active. This section makes a single txt file for the vegasAnalysis class. 
+
 =for comment
 $runparamscript="${runlistdir}/Runlist_${suffix}.txt";
 if ( ! open SCRIPT, ">>", $runparamscript )

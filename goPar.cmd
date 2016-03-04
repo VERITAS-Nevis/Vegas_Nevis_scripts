@@ -6,7 +6,7 @@
 
 universe        = vanilla
 Rank            = (10*Mips + 10*KFlops + 20*Memory)
-Requirements  = (Memory > 2000)
+#Requirements  = (Memory > 2000)
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 getenv          = true
