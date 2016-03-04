@@ -22,6 +22,15 @@ $cuts="med-com";
 
 chdir $runlistdir;
 
+($strlead = qq{
+gROOT->ProcessLine(".L /a/home/tehanu/omw2107/classes/vegasAnalysis.cpp");
+vector <float> bin;
+vector <float> res;
+vector <float> rms;
+int bins = 10;
+});
+print $strlead;
+
 foreach $epoch (@epochs)
 {
   foreach $wobble (@wobbles)
@@ -40,6 +49,12 @@ foreach $epoch (@epochs)
           @druns = ( @druns, $dataRun );
           @fruns = ( @fruns, $flasherRun );
 ($str = qq{
+char epo='$epoch';
+int epochs = 6;
+int wobbles = $wobble;
+int atms=$atm;
+int Zeniths=$zenith;
+int noises=$noise;
 vegasAnalysis *v = new vegasAnalysis("$runparamscript",999999);
 v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
 cout << "DATATATA"<< endl;
