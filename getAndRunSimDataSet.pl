@@ -29,7 +29,8 @@ $stagecode = $ARGV[2];   # Stages to run the analysis on
 #@atms=("21", "22");
 @atms=("21");
 #@Zeniths=("00", "20", "30", "35", "40", "45", "50", "55", "60", "65");
-@Zeniths=("45", "50", "55", "60", "65");
+#@Zeniths=("20","45", "50", "55", "60", "65");
+@Zeniths=("20");
 #@noises=("100", "150", "200", "250", "300", "350", "400", "490", "605", "730", "870");
 @noises=("350", "400");
 
@@ -304,7 +305,7 @@ for ( $i=0; $i<$ntot; $i++ ) {
     {
 	die "Cannot open $runparamscript: $!";
     }
-    print SCRIPT "Requirements = machine == \"$servers[$si].nevis.columbia.edu\"\n";
+    #print SCRIPT "Requirements = machine == \"$servers[$si].nevis.columbia.edu\"\n";
     print SCRIPT "output = $douts[$si]/Para_$drun.out\n";
     print SCRIPT "error  = $douts[$si]/Para_$drun.err\n";
     print SCRIPT "log    = $douts[$si]/Para_$drun.log\n";
