@@ -994,4 +994,202 @@ vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/r
 v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
 cout << "DATATATA"<< endl;
 for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 000;
+int atms=21;
+int Zeniths=20;
+int noises=350;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_000wobb_350noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 000;
+int atms=21;
+int Zeniths=20;
+int noises=400;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_000wobb_400noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 025;
+int atms=21;
+int Zeniths=20;
+int noises=350;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_025wobb_350noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 025;
+int atms=21;
+int Zeniths=20;
+int noises=400;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_025wobb_400noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 050;
+int atms=21;
+int Zeniths=200;
+int noises=350;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_050wobb_350noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 050;
+int atms=21;
+int Zeniths=20;
+int noises=400;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_050wobb_400noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 075;
+int atms=21;
+int Zeniths=20;
+int noises=350;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_075wobb_350noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 075;
+int atms=21;
+int Zeniths=20;
+int noises=400;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_075wobb_400noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 100;
+int atms=21;
+int Zeniths=20;
+int noises=350;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_100wobb_350noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 100;
+int atms=21;
+int Zeniths=20;
+int noises=400;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_100wobb_400noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 125;
+int atms=21;
+int Zeniths=20;
+int noises=350;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_125wobb_350noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 125;
+int atms=21;
+int Zeniths=20;
+int noises=400;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_125wobb_400noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 150;
+int atms=21;
+int Zeniths=20;
+int noises=350;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_150wobb_350noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 150;
+int atms=21;
+int Zeniths=20;
+int noises=400;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_150wobb_400noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 175;
+int atms=21;
+int Zeniths=20;
+int noises=350;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_175wobb_350noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 175;
+int atms=21;
+int Zeniths=20;
+int noises=400;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_175wobb_400noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 200;
+int atms=21;
+int Zeniths=20;
+int noises=350;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_200wobb_350noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
+
+char epo='ua';
+int epochs = 6;
+int wobbles = 200;
+int atms=21;
+int Zeniths=20;
+int noises=400;
+vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_200wobb_400noise-med-com-disp_new.txt",999999);
+v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
+cout << "DATATATA"<< endl;
+for(int i=0;i<bins;i++) cout << epo << " " << atms << " " << Zeniths << " " <<  wobbles << " " <<  noises << " " <<  bin[i] << " " << res[i] << " " <<  rms[i] <<  endl;
 }
