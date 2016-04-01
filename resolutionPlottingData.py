@@ -38,7 +38,7 @@ class data_struc:
     parameter=np.zeros(len(close_p))
     for i in range(len(close_p)):
       for m in range(len(self.data[:,col])):
-        if (close_p[i]-self.data[m,col])<1e-3:
+        if (abs(close_p[i]-self.data[m,col]))<1e-3:
           parameter[k]=self.data[m,col]
           k=k+1
           break

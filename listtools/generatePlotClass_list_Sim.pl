@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+#This generates a single file for each vegasAnalysis runlist - looping through sims.
+# OR it make a single txt file for everything (uncomment to use that version)
+
 #runlist=$1
 $sourcename=$ARGV[0];
 $suffix=$ARGV[1];
@@ -11,7 +14,7 @@ $suffix=$ARGV[1];
 #@atms=("21", "22");
 @atms=("21");
 #@Zeniths=("00", "20", "30", "35", "40", "45", "50", "55", "60", "65");
-@Zeniths=("45", "50", "55", "60", "65");
+@Zeniths=("20","45", "50", "55", "60", "65");
 #@noises=("100", "150", "200", "250", "300", "350", "400", "490", "605", "730", "870");
 @noises=("350", "400");
 

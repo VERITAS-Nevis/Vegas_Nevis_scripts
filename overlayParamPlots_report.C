@@ -143,7 +143,7 @@ void plotParameters( string paramFilename1, bool isData )
   }
 }
 
-void overlayParamPlots_report(string paramFilename1, bool isData1, string paramFilename2, bool isData2, double yaxis_min=1e-2, double yaxis_max=10, Short_t col2=kRed, bool doNormalizedArea=true)
+void overlayParamPlots_report(string paramFilename1, bool isData1, string paramFilename2, bool isData2,double yaxis_min=1e-2, double yaxis_max=10, Short_t col2=kRed, bool doNormalizedArea=true)
 {
   cout <<"file1 (black) : " << paramFilename1 <<endl;
   cout <<"file2 ( " << col2 <<" ) : "<< paramFilename2 <<endl;
@@ -267,10 +267,17 @@ void overlayParamPlots_report(string paramFilename1, bool isData1, string paramF
     }
   }
 
+  string outfile = "/a/data/tehanu/dribeiro/Crab/Overlay_geo";
+  string buffout;
   TCanvas *canSP[NofShowerParams];
   for(int i=0; i<NofShowerParams; i++){
     sprintf( title, "can_%s", NameOfParams[i].c_str());
     canSP[i] = new TCanvas( title, title, 0, 0, 1200, 800);
+    if(i==0){
+    sprintf(buffout.c_str(),"%s.ps[",outfile.c_str());
+    canSP[0]->Print(buffout.c_str());
+    }
+    else {sprintf(buffout.c_str(),"%s.ps",outfile.c_str());}
     canSP[i]->SetFillColor(10);
     canSP[i]->Divide(3,2);
     for(int j=0; j<NofEbins; j++){
@@ -286,7 +293,11 @@ void overlayParamPlots_report(string paramFilename1, bool isData1, string paramF
       }
       h1Params2[i][j][reportTypeId]->Draw("psames");
     }
+    canSP[i]->Print(buffout.c_str());
   }
+  
+  sprintf(buffout.c_str(),"%s.ps]",outfile.c_str());
+  canSP[NofShowerParams-1]->Print(buffout.c_str());
 
   TCanvas *canHP[kMaxTels];
   for(int ntel = 0; ntel<kMaxTels; ntel++){
@@ -294,6 +305,11 @@ void overlayParamPlots_report(string paramFilename1, bool isData1, string paramF
     canHP[ntel] = new TCanvas( title, title, 0, 0, 1200, 800);
     canHP[ntel]->SetFillColor(10);
     canHP[ntel]->Divide(5,3);
+    if(ntel==0){
+    sprintf(buffout.c_str(),"%s_2.ps[",outfile.c_str());
+    canHP[ntel]->Print(buffout.c_str());
+    }
+    else {sprintf(buffout.c_str(),"%s_2.ps",outfile.c_str());}
     for(int i=0; i<NofTelParams; i++){
       canHP[ntel]->cd(i+1);
       if( NameOfParamsTel[i].compare("SizeFracLo") == 0 ||
@@ -311,8 +327,11 @@ void overlayParamPlots_report(string paramFilename1, bool isData1, string paramF
       }
       h1ParamsPerTelCombined2[i][ntel][reportTypeId]->Draw("psames");
     }
+    canHP[ntel]->Print(buffout.c_str());
     canHP[ntel]->cd();
   }
+  sprintf(buffout.c_str(),"%s_2.ps]",outfile.c_str());
+  canHP[kMaxTels-1]->Print(buffout.c_str());
 }
 
 void overlayParamPlots_report(string paramFilename1, bool isData1, string paramFilename2, bool isData2, string paramToPlot, int rebin=1, double yaxis_min=1e-2, double yaxis_max=10, Short_t col2=kRed, bool doNormalizedArea=true)

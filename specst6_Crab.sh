@@ -25,10 +25,10 @@ echo
 
 $vroot/bin/vaStage6 \
     -OverrideEACheck=1   -S6A_Batch=1 \
-    -EA_UpdateModifiedEffectiveArea=0 -EA_RealSpectralIndex=-2.4 \
+    -EA_UpdateModifiedEffectiveArea=1 -EA_RealSpectralIndex=-2.79 \
     -EA_WindowSizeForNoise=7 \
     -S6A_ReadFromStage4=true -S6A_ReadFromStage5Combined=1 \
-    -S6A_Spectrum=0 \
+    -S6A_Spectrum=1 \
     -S6A_UpperLimit=0 \
     -SP_EnergyBinning=4 \
     -SP_ForceFitRange=0 \

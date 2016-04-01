@@ -179,6 +179,7 @@ void generateGammaParamPlots( string stage6filename, string filelist,
   char title[150];
   TH1F *h1Params[NofShowerParams][NofEbins][NofType];
   TH1F *h1ParamsPerTel[NofTelParams][NofEbins][kMaxTels][NofType];
+  cout << "\n Continue...3...\n" << endl;
   for(int i=0; i<NofShowerParams; i++){
     for(int j=0; j<NofEbins; j++){
       for(int k=0; k<NofType; k++){
@@ -190,6 +191,7 @@ void generateGammaParamPlots( string stage6filename, string filelist,
       }
     }
   }
+  cout << "\n Continue...2...\n" << endl;
   for(int i=0; i<NofTelParams; i++){
     for(int j=0; j<NofEbins; j++){
       for(int k=0; k<NofType; k++){
@@ -209,7 +211,8 @@ void generateGammaParamPlots( string stage6filename, string filelist,
   Double_t rAlpha, rOnExp, rOffExp;
   Double_t rDayNSDbl, rPsi, rWeight;
   Float_t rElRad, rAzRad;
-  int rEvnum, rRunnum, rMjdInt;
+  //int rEvnum, rRunnum, rMjdInt;
+  UInt_t rEvnum, rRunnum, rMjdInt;
   bool rOnEvent, rOffEvent;
   float rEnergyGeV;
   TTree *trSt6Rs = 0;
@@ -227,9 +230,9 @@ void generateGammaParamPlots( string stage6filename, string filelist,
     trSt6Es->SetBranchAddress( "DayNSDbl", &rDayNSDbl );
     trSt6Es->SetBranchAddress( "Psi", &rPsi );
     trSt6Es->SetBranchAddress( "Weight", &rWeight );
-    trSt6Es->SetBranchAddress( "ArrayEventNum", &rEvnum );
-    trSt6Es->SetBranchAddress( "RunNum", &rRunnum );
-    trSt6Es->SetBranchAddress( "MJDInt", &rMjdInt );
+    trSt6Es->SetBranchAddress( "ArrayEventNum", &rEvnum );//
+    trSt6Es->SetBranchAddress( "RunNum", &rRunnum );//
+    trSt6Es->SetBranchAddress( "MJDInt", &rMjdInt );//
     trSt6Es->SetBranchAddress( "OnEvent", &rOnEvent );
     trSt6Es->SetBranchAddress( "OffEvent", &rOffEvent );
     trSt6Es->SetBranchAddress( "EnergyGeV", &rEnergyGeV );
@@ -386,6 +389,7 @@ void generateGammaParamPlots( string stage6filename, string filelist,
       h1Params[getShowerParameterID("ShowerMaxHeight")][EbinId][typeId]->Fill( sh->fShowerMaxHeight_KM, weight );
       h1Params[getShowerParameterID("EnergyDiff")][EbinId][typeId]->Fill( sh->fEnergyRMS_GeV/sh->fEnergy_GeV, weight );
       h1Params[getShowerParameterID("Energy")][EbinId][typeId]->Fill( TMath::Log10(sh->fEnergy_GeV*1e-3), weight );
+      cout << sh->fEnergy_GeV << endl;
       h1Params[getShowerParameterID("Theta2")][EbinId][typeId]->Fill( sh->fTheta2_Deg2, weight );
       h1Params[getShowerParameterID("LogTheta2")][EbinId][typeId]->Fill( TMath::Log10(sh->fTheta2_Deg2), weight );
 

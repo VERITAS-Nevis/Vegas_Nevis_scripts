@@ -1043,7 +1043,7 @@ char epo='ua';
 int epochs = 6;
 int wobbles = 050;
 int atms=21;
-int Zeniths=200;
+int Zeniths=20;
 int noises=350;
 vegasAnalysis *v = new vegasAnalysis("/a/home/tehanu/dribeiro/Analysis/CrabSim/runlists/Classes//Oct2012_ua_ATM21_vegasv250rc5_7samples_20deg_050wobb_350noise-med-com-disp_new.txt",999999);
 v->getBinnedResolution(bin, res, rms, "fEnergy_GeV", 0, bins,"Logarithmic");
