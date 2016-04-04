@@ -14,7 +14,7 @@ $stagecode = $ARGV[5];   # Stages to run the analysis on
 #  The stage code string is currently 8 characters long
 #  0 - run stage 1? 0=no, 1=yes
 #  1 - run stage 2? 0=no, use existing regular analysis; 1=yes; 2=hfit; 4=no, use existing hfit analysis
-#  2 - run stage 4? 0=no, 1=geo, 2=disp, 4=mix
+#  2 - run stage 4? 0=no, 1=geo, 2=disp_old, 3=disp_new, 4=mix
 #  3 - run stage 5 regular? 0=no, 1=yes
 #  4 - run stage 5 combined? 0=no, 1=yes
 #  5 - write calibrated events at st2? 0=no, 1=yes
@@ -47,7 +47,6 @@ unless ( -d $tehanuFlashers ) {
 
 # Set up the paths on the analysis/storage servers.
 @servers = ( "ged", "serret", "vetch" );
-#@servers = ( "serret", "vetch" );
 $nServ = 3;
 for $server (@servers) {
     $raw1 = "/a/data/".$server."/Raw/Flasher";
@@ -219,16 +218,28 @@ while (<LIST>)
 #	$alt = "/a/data/tehanu/ap3115/LTs/vegas-2.5/lt_Oct2012_ua_ATM22_7samples_vegasv250rc5_050wobb_LZA.root";
 #	$adt = "/a/data/tehanu/ap3115/DTs/vegas-2.5/rc4/dt_Oct2012_ua_ATM22_7samples_vegasv250rc4_050wobb_LZA.root";
     }
-	#$adt = "/a/data/tehanu/humensky/DTs/vegas-2.5/dt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_050wobb_LZA.root";
-  $adt = "/a/data/tehanu/dribeiro/DTs/TMVA_Disp.xml";
+       
+        if ( substr($stagecode,2,1) eq '1') { #geo - no table necessary
+          $adt = ""; 
+          }
+        elsif ( substr($stagecode,2,1) eq '2'){ #disp old - old table
+          $adt = "/a/data/tehanu/humensky/DTs/vegas-2.5/dt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_050wobb_LZA.root"; 
+          }
+        elsif ( substr($stagecode,2,1) eq '3'){ #disp new
+          $adt = "/a/data/tehanu/dribeiro/DTs/TMVA_Disp.xml"; #need this for disp_new
+          }
+        else{
+          }
 
     @auto_lt = (@auto_lt, $alt);
     @auto_dt = (@auto_dt, $adt);
 
     @seri = ( @seri, $iii );
 
-    print $dataRun."\n".$drawfile."\n".$frawfile."\n".
-        $iii."\t".$serverIndex."\n\n";
+        print $alt."\n";
+        print $adt."\n";
+        print $dataRun."\n".$drawfile."\n".$frawfile."\n";
+        print $iii."\t".$serverIndex."\n\n";
 
     # Increment index
     $iii += 1;

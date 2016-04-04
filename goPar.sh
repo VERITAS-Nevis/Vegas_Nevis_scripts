@@ -26,7 +26,7 @@ cali_dir=/a/data/tehanu/$USER/Flasher/$version
 #  The stage code string is currently NN characters long
 #  0 - run stage 1? 0=no, 1=yes
 #  1 - run stage 2? 0=no, 1=yes, 2=hfit
-#  2 - run stage 4? 0=no, 1=geo, 2=disp, 4=mix
+#  2 - run stage 4? 0=no, 1=geo, 2=disp_old, 3=disp_new, 4=mix
 #  3 - run stage 5 regular? 0=no, 1=yes
 #  4 - run stage 5 combined? 0=no, 1=yes
 #  5 - write calibrated events at st2? 0=no, 1=yes
@@ -44,7 +44,7 @@ epoch=${stcode:7:1}
 
 vegas=/a/home/tehanu/ap3115/software/veritas/vegas-v$version
 
-suffix="-disp_new"  #default is "_"
+suffix="-geo"  #default is "_"
 
 echo ==============================================================
 date
@@ -132,8 +132,20 @@ if [ $st2code -eq 2 -o $st2code -eq 4 ]; then
 else
     stage4options=$stage4options"   "
 fi
+
+### Stage 4 Codes
+
+
+if [ $st4code -eq 1 ]; then
+    suffix="-geo"
+fi
 if [ $st4code -eq 2 ]; then
-    stage4options=$stage4options" -DR_Algorithm=Method5t " #currently set to '5', meaning disp_old. must reset to '5t' for disp_new 
+    suffix="-disp_old"
+    stage4options=$stage4options" -DR_Algorithm=Method5 "  
+fi
+if [ $st4code -eq 3 ]; then
+    suffix="-disp_new"
+    stage4options=$stage4options" -DR_Algorithm=Method5t "  
 fi
 if [ $st4code -eq 4 ]; then
     stage4options=$stage4options" -DR_Algorithm=Method6 "

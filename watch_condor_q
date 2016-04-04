@@ -1,3 +1,11 @@
+if [ "$#" -gt 0 ]; then
+  time=$1
+  return
+else
+  time=3
+  return
+fi
+
 while true; do
   echo ....
   echo .... Output from condor_q
@@ -12,5 +20,5 @@ while true; do
   #echo .... Output from condor_q -dag
   #echo ....
   #condor_q -dag dribeiro
-  sleep 10
+  sleep $time
 done
