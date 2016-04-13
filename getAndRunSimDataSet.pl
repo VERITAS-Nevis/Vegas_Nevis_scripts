@@ -389,7 +389,7 @@ for ( $i=0; $i<$ntot; $i++ ) {
   print SCRIPT "User = ".$ENV{'USER'}."\n";
   print SCRIPT "queue 1\n";
   close SCRIPT;
-  system "condor_submit $runparamscript\n";
+  #system "condor_submit $runparamscript\n";
   #print "sleeping \n";
   #sleep (3);
   print "\n\n";

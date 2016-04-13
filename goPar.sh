@@ -344,6 +344,20 @@ fi
 if [ $st5comcode -gt 0 ]; then
     echo Running stage 5 combined
     date
+    # Stage 5 soft-com cuts
+    if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
+    echo Running stage 5 combined with Soft Cuts
+    $vegas/bin/vaStage5 $stage5options $stage5optionsSoft -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-soft${HFitCuts}${suffix}.root -outputFile $outdir/${dataRun}s5-soft${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log
+    cat $st5cfg >> $outdir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log
+    rm $st5cfg
+    cat $st5cut >> $outdir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log
+    rm $st5cut
+    ln -f -s $outdir/${dataRun}s5-soft${HFitCuts}-com${suffix}.root $lndir/${dataRun}s5-soft${HFitCuts}-com${suffix}.root
+    ln -f -s $outdir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log $lndir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log
+    fi
+    # Stage 5 med-com cuts
+    if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
+    echo Running stage 5 combined with Medium Cuts
     $vegas/bin/vaStage5 $stage5options $stage5optionsMed -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root -outputFile $outdir/${dataRun}s5-med${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
     cat $st5cfg >> $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
     rm $st5cfg
@@ -351,6 +365,18 @@ if [ $st5comcode -gt 0 ]; then
     rm $st5cut
     ln -f -s $outdir/${dataRun}s5-med${HFitCuts}-com${suffix}.root $lndir/${dataRun}s5-med${HFitCuts}-com${suffix}.root
     ln -f -s $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log $lndir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
+    fi
+    # Stage 5 hard-com cuts
+    if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
+    echo Running stage 5 combined with Hard Cuts
+    $vegas/bin/vaStage5 $stage5options $stage5optionsHard -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-hard${HFitCuts}${suffix}.root -outputFile $outdir/${dataRun}s5-hard${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log
+    cat $st5cfg >> $outdir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log
+    rm $st5cfg
+    cat $st5cut >> $outdir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log
+    rm $st5cut
+    ln -f -s $outdir/${dataRun}s5-hard${HFitCuts}-com${suffix}.root $lndir/${dataRun}s5-hard${HFitCuts}-com${suffix}.root
+    ln -f -s $outdir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log $lndir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log
+    fi
 fi
 
 

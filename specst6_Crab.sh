@@ -25,9 +25,9 @@ echo
 
 $vroot/bin/vaStage6 \
     -OverrideEACheck=1   -S6A_Batch=1 \
-    -EA_UpdateModifiedEffectiveArea=1 -EA_RealSpectralIndex=-2.79 \
+    -EA_UpdateModifiedEffectiveArea=1 -EA_RealSpectralIndex=-3.25 \
     -EA_WindowSizeForNoise=7 \
-    -S6A_ReadFromStage4=true -S6A_ReadFromStage5Combined=1 \
+    -S6A_ReadFromStage4=false -S6A_ReadFromStage5Combined=1 \
     -S6A_Spectrum=1 \
     -S6A_UpperLimit=0 \
     -SP_EnergyBinning=4 \
@@ -37,7 +37,6 @@ $vroot/bin/vaStage6 \
     -S6A_ConfigDir=$CONFDIR -S6A_OutputFileName=res_$LOGFILE \
     -S6A_ExcludeSource=1 -S6A_SourceExclusionRadius=0.4 \
     -S6A_StarExclusionBMagLimit=6 \
-    -TelCombosToDeny=ANY2 \
     -S6A_StarExclusionRadius=0 \
     -S6A_NumRings=0 \
     -EC_maxPsiSq=2.89 \
