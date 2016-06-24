@@ -44,8 +44,6 @@ epoch=${stcode:7:1}
 
 vegas=/a/home/tehanu/ap3115/software/veritas/vegas-v$version
 
-suffix="-geo"  #default is "_"
-
 echo ==============================================================
 date
 echo   Server         = $server
@@ -136,15 +134,16 @@ fi
 ### Stage 4 Codes
 
 
+extrasuffix4=""
 if [ $st4code -eq 1 ]; then
-    suffix="-geo"
+    suffix4="-geo$extrasuffix4"
 fi
 if [ $st4code -eq 2 ]; then
-    suffix="-disp_old"
+    suffix4="-disp_old$extrasuffix4"
     stage4options=$stage4options" -DR_Algorithm=Method5 "  
 fi
 if [ $st4code -eq 3 ]; then
-    suffix="-disp_new"
+    suffix4="-disp_new$extrasuffix4"
     stage4options=$stage4options" -DR_Algorithm=Method5t "  
 fi
 if [ $st4code -eq 4 ]; then
@@ -198,6 +197,7 @@ stage5options="-G_GlobalProgressPrintFrequency=50000 \
     -RemoveCutEvents=1 \
     $timeCut \
     -SaveDiagnostics=1 \
+    -ImpactDistanceUpper=300 \
     -G_SimulationMode=1"
 #    -MeanScaledWidthLower=-1 \
 #    -MeanScaledWidthUpper=10 \
@@ -260,44 +260,47 @@ if [ $st4code -gt 0 ]; then
     # Stage 4 soft cuts
     if [ $st4cuts -eq 0 -o $st4cuts -eq 3 ]; then
 	echo Running Stage 4 with Soft Cuts...
-	cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-soft${HFitCuts}${suffix}.root
-	$vegas/bin/vaStage4.2 $stage4options $stage4optionsSoft -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-soft${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix}.log
-	cat $st4cfg >> $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix}.log
+	cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-soft${HFitCuts}${suffix4}.root
+	echo "$vegas/bin/vaStage4.2 $stage4options $stage4optionsSoft -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-soft${HFitCuts}${suffix4}.root  >& $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix4}.log"
+	$vegas/bin/vaStage4.2 $stage4options $stage4optionsSoft -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-soft${HFitCuts}${suffix4}.root  >& $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix4}.log
+	cat $st4cfg >> $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix4}.log
 	rm $st4cfg
         
-	cat $st4cut >> $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix}.log
+	cat $st4cut >> $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix4}.log
 	rm $st4cut
-	ln -f -s $outdir/${dataRun}s4-soft${HFitCuts}${suffix}.root $lndir/${dataRun}s4-soft${HFitCuts}${suffix}.root
-	ln -f -s $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix}.log $lndir/Log/log${dataRun}s4-soft${HFitCuts}${suffix}.log
+	ln -f -s $outdir/${dataRun}s4-soft${HFitCuts}${suffix4}.root $lndir/${dataRun}s4-soft${HFitCuts}${suffix4}.root
+	ln -f -s $outdir/Log/log${dataRun}s4-soft${HFitCuts}${suffix4}.log $lndir/Log/log${dataRun}s4-soft${HFitCuts}${suffix4}.log
     fi
     # Stage 4 medium cuts
     if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
 	echo Running Stage 4 with Medium Cuts...
-	cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root
-	echo "$vegas/bin/vaStage4.2 $stage4options $stage4optionsMed -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix}.log"
-	$vegas/bin/vaStage4.2 $stage4options $stage4optionsMed -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix}.log
-	cat $st4cfg >> $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix}.log
+	#cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root
+	echo "$vegas/bin/vaStage4.2 $stage4options $stage4optionsMed -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root  >& $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log"
+	#$vegas/bin/vaStage4.2 $stage4options $stage4optionsMed -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root  >& $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log
+	cat $st4cfg >> $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log
 	rm $st4cfg
-	cat $st4cut >> $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix}.log
+	cat $st4cut >> $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log
 	rm $st4cut
-	ln -f -s $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root $lndir/${dataRun}s4-med${HFitCuts}${suffix}.root
-	ln -f -s $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix}.log $lndir/Log/log${dataRun}s4-med${HFitCuts}${suffix}.log
+	ln -f -s $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root $lndir/${dataRun}s4-med${HFitCuts}${suffix4}.root
+	ln -f -s $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log $lndir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log
     fi
     # Stage 4 Hard Cuts
     if [ $st4cuts -eq 2 -o $st4cuts -eq 3 ]; then
 	echo Running Stage 4 with Hard Cuts...
-	cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-hard${HFitCuts}${suffix}.root
-	$vegas/bin/vaStage4.2 $stage4options $stage4optionsHard -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-hard${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s4-hard${HFitCuts}${suffix}.log
-	cat $st4cfg >> $outdir/Log/log${dataRun}s4-hard${HFitCuts}${suffix}.log
+	cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-hard${HFitCuts}${suffix4}.root
+	echo "$vegas/bin/vaStage4.2 $stage4options $stage4optionsHard -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-hard${HFitCuts}${suffix4}.root  >& $outdir/Log/log${dataRun}s4-hard${HFitCuts}${suffix4}.log"
+	$vegas/bin/vaStage4.2 $stage4options $stage4optionsHard -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-hard${HFitCuts}${suffix4}.root  >& $outdir/Log/log${dataRun}s4-hard${HFitCuts}${suffix4}.log
+	cat $st4cfg >> $outdir/Log/log${dataRun}s4-hard${HFitCuts}${suffix4}.log
 	rm $st4cfg
-	cat $st4cut >> $outdir/Log/log${dataRun}s4-hard${HFitCuts}${suffix}.log
+	cat $st4cut >> $outdir/Log/log${dataRun}s4-hard${HFitCuts}${suffix4}.log
 	rm $st4cut
-	ln -f -s $outdir/${dataRun}s4-hard${HFitCuts}${suffix}.root $lndir/${dataRun}s4-hard${HFitCuts}${suffix}.root
-	ln -f -s $outdir/Log/log${dataRun}s4-hard${HFitCuts}${suffix}.log $lndir/Log/log${dataRun}s4-hard${HFitCuts}${suffix}.log
+	ln -f -s $outdir/${dataRun}s4-hard${HFitCuts}${suffix4}.root $lndir/${dataRun}s4-hard${HFitCuts}${suffix4}.root
+	ln -f -s $outdir/Log/log${dataRun}s4-hard${HFitCuts}${suffix4}.log $lndir/Log/log${dataRun}s4-hard${HFitCuts}${suffix4}.log
     fi
 fi
 
-
+extrasuffix5="_ImpactCut"
+suffix="$suffix4$extrasuffix5"
 
 # Run Stage 5 regular
 if [ $st5code -gt 0 ]; then
@@ -306,7 +309,8 @@ if [ $st5code -gt 0 ]; then
     # Stage 5 soft cuts
     if [ $st4cuts -eq 0 -o $st4cuts -eq 3 ]; then
 	echo Running Stage 5 with Soft Cuts...
-	$vegas/bin/vaStage5 $stage5options $stage5optionsSoft -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-soft${HFitCuts}${suffix}.root -outputFile $outdir/${dataRun}s5-soft${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s5-soft${HFitCuts}${suffix}.log
+	echo "$vegas/bin/vaStage5 $stage5options $stage5optionsSoft -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-soft${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-soft${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s5-soft${HFitCuts}${suffix}.log"
+	$vegas/bin/vaStage5 $stage5options $stage5optionsSoft -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-soft${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-soft${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s5-soft${HFitCuts}${suffix}.log
 	cat $st5cfg >> $outdir/Log/log${dataRun}s5-soft${HFitCuts}${suffix}.log
 	rm $st5cfg
 	cat $st5cut >> $outdir/Log/log${dataRun}s5-soft${HFitCuts}${suffix}.log
@@ -317,7 +321,8 @@ if [ $st5code -gt 0 ]; then
     # Stage 5 medium cuts
     if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
 	echo Running Stage 5 with Medium Cuts...
-	$vegas/bin/vaStage5 $stage5options $stage5optionsMed -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root -outputFile $outdir/${dataRun}s5-med${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s5-med${HFitCuts}${suffix}.log
+	echo "$vegas/bin/vaStage5 $stage5options $stage5optionsMed -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-med${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s5-med${HFitCuts}${suffix}.log"
+	$vegas/bin/vaStage5 $stage5options $stage5optionsMed -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-med${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s5-med${HFitCuts}${suffix}.log
 	cat $st5cfg >> $outdir/Log/log${dataRun}s5-med${HFitCuts}${suffix}.log
 	rm $st5cfg
 	cat $st5cut >> $outdir/Log/log${dataRun}s5-med${HFitCuts}${suffix}.log
@@ -328,7 +333,8 @@ if [ $st5code -gt 0 ]; then
     # Stage 5 hard cuts
     if [ $st4cuts -eq 2 -o $st4cuts -eq 3 ]; then
 	echo Running Stage 5 with Hard Cuts...
-	$vegas/bin/vaStage5 $stage5options $stage5optionsHard -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-hard${HFitCuts}${suffix}.root -outputFile $outdir/${dataRun}s5-hard${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s5-hard${HFitCuts}${suffix}.log
+	echo "$vegas/bin/vaStage5 $stage5options $stage5optionsHard -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-hard${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-hard${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s5-hard${HFitCuts}${suffix}.log "
+	$vegas/bin/vaStage5 $stage5options $stage5optionsHard -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-hard${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-hard${HFitCuts}${suffix}.root  >& $outdir/Log/log${dataRun}s5-hard${HFitCuts}${suffix}.log
 	cat $st5cfg >> $outdir/Log/log${dataRun}s5-hard${HFitCuts}${suffix}.log
 	rm $st5cfg
 	cat $st5cut >> $outdir/Log/log${dataRun}s5-hard${HFitCuts}${suffix}.log
@@ -345,9 +351,10 @@ if [ $st5comcode -gt 0 ]; then
     echo Running stage 5 combined
     date
     # Stage 5 soft-com cuts
-    if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
+    if [ $st4cuts -eq 0 -o $st4cuts -eq 3 ]; then
     echo Running stage 5 combined with Soft Cuts
-    $vegas/bin/vaStage5 $stage5options $stage5optionsSoft -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-soft${HFitCuts}${suffix}.root -outputFile $outdir/${dataRun}s5-soft${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log
+    echo "$vegas/bin/vaStage5 $stage5options $stage5optionsSoft -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-soft${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-soft${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log "
+    $vegas/bin/vaStage5 $stage5options $stage5optionsSoft -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-soft${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-soft${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log
     cat $st5cfg >> $outdir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log
     rm $st5cfg
     cat $st5cut >> $outdir/Log/log${dataRun}s5-soft${HFitCuts}-com${suffix}.log
@@ -358,7 +365,8 @@ if [ $st5comcode -gt 0 ]; then
     # Stage 5 med-com cuts
     if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
     echo Running stage 5 combined with Medium Cuts
-    $vegas/bin/vaStage5 $stage5options $stage5optionsMed -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-med${HFitCuts}${suffix}.root -outputFile $outdir/${dataRun}s5-med${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
+    echo "$vegas/bin/vaStage5 $stage5options $stage5optionsMed -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-med${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log"
+    $vegas/bin/vaStage5 $stage5options $stage5optionsMed -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-med${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
     cat $st5cfg >> $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
     rm $st5cfg
     cat $st5cut >> $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
@@ -367,9 +375,10 @@ if [ $st5comcode -gt 0 ]; then
     ln -f -s $outdir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log $lndir/Log/log${dataRun}s5-med${HFitCuts}-com${suffix}.log
     fi
     # Stage 5 hard-com cuts
-    if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
+    if [ $st4cuts -eq 2 -o $st4cuts -eq 3 ]; then
     echo Running stage 5 combined with Hard Cuts
-    $vegas/bin/vaStage5 $stage5options $stage5optionsHard -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-hard${HFitCuts}${suffix}.root -outputFile $outdir/${dataRun}s5-hard${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log
+    echo "$vegas/bin/vaStage5 $stage5options $stage5optionsHard -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-hard${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-hard${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log "
+    $vegas/bin/vaStage5 $stage5options $stage5optionsHard -Method=combined -save_config=$st5cfg -save_cuts=$st5cut -inputFile $outdir/${dataRun}s4-hard${HFitCuts}${suffix4}.root -outputFile $outdir/${dataRun}s5-hard${HFitCuts}-com${suffix}.root  >& $outdir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log
     cat $st5cfg >> $outdir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log
     rm $st5cfg
     cat $st5cut >> $outdir/Log/log${dataRun}s5-hard${HFitCuts}-com${suffix}.log

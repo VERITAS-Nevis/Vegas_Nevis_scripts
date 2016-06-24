@@ -23,16 +23,15 @@ $stagecode = $ARGV[2];   # Stages to run the analysis on
                          # 
                          # 
 #@epochs=("oa", "na", "ua");
-@epochs=("na");
+@epochs=("ua");
 #@wobbles=("000", "025", "050", "075", "100", "125", "150", "175", "200");
 @wobbles=("000", "025", "050", "075", "100", "125", "150", "175", "200");
 #@atms=("21", "22");
 @atms=("21");
 #@Zeniths=("00", "20", "30", "35", "40", "45", "50", "55", "60", "65");
 @Zeniths=("20","45", "50", "55", "60", "65");
-#@Zeniths=("20");
 #@noises=("100", "150", "200", "250", "300", "350", "400", "490", "605", "730", "870");
-@noises=("350", "400");
+@noises=("350","400");
 
 $dbhost = $ENV{'VDBHOST'};
 
@@ -199,7 +198,7 @@ foreach $epoch (@epochs)
           }
        
         if ( substr($stagecode,2,1) eq '1') { #geo - no table necessary
-          $adt = ""; 
+          $adt = "null"; 
           }
         elsif ( substr($stagecode,2,1) eq '2'){ #disp old - old table
           $adt = "/a/data/tehanu/humensky/DTs/vegas-2.5/dt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_050wobb_LZA.root"; 
@@ -310,7 +309,9 @@ for ( $i=0; $i<$ntot; $i++ ) {
     }
     #print "  local size = ".$fileSize."\n";
   }
-  # Check remote file size
+  # Check remote file size?
+  $checkRemote=0;
+  if ( $checkRemote ) {
   $command="bbftp -w 50065 -m -p 1 -u bbftp -V -S -e \"stat ".$Sarchivefiles[$i].
   "\" gamma1.astro.ucla.edu";
   chomp( $answer = `$command` );
@@ -344,7 +345,8 @@ for ( $i=0; $i<$ntot; $i++ ) {
     $lncommand="ln -f -s $drawfiles[$i] /a/data/tehanu/$ENV{'USER'}/${sourcename}/${version}/${drun}s2.root";
     print $lncommand."\n";
     system $lncommand;
-  } 
+  }
+  }
   else 
   {
     print "Got it already!\n";
@@ -361,7 +363,7 @@ for ( $i=0; $i<$ntot; $i++ ) {
 
   # Build the analysis script and submit the job
   chdir $douts[$si];
-  $runparamscript = $douts[$si]."/".$paramscript."_".$drun;
+  $runparamscript = $douts[$si]."/".$paramscript."_".$stagecode."_".$drun;
   copy($scriptdir."/".$paramscript, $runparamscript) or
     die "Cannot copy ".$scriptdir."/".$paramscript." to ".$runparamscript;
   if ( ! open SCRIPT, ">>", $runparamscript )
@@ -369,9 +371,9 @@ for ( $i=0; $i<$ntot; $i++ ) {
     die "Cannot open $runparamscript: $!";
   }
   #print SCRIPT "Requirements = machine == \"$servers[$si].nevis.columbia.edu\"\n";
-  print SCRIPT "output = $douts[$si]/Para_$drun.out\n";
-  print SCRIPT "error  = $douts[$si]/Para_$drun.err\n";
-  print SCRIPT "log    = $douts[$si]/Para_$drun.log\n";
+  print SCRIPT "output = $douts[$si]/Para_$stagecode._$drun.out\n";
+  print SCRIPT "error  = $douts[$si]/Para_$stagecode._$drun.err\n";
+  print SCRIPT "log    = $douts[$si]/Para_$stagecode._$drun.log\n";
   print SCRIPT "Notification = Error\n";
   print SCRIPT "initialdir = $douts[$si]\n";
   print SCRIPT "RunNumber = $drun\n";
@@ -389,7 +391,7 @@ for ( $i=0; $i<$ntot; $i++ ) {
   print SCRIPT "User = ".$ENV{'USER'}."\n";
   print SCRIPT "queue 1\n";
   close SCRIPT;
-  #system "condor_submit $runparamscript\n";
+  system "condor_submit $runparamscript\n";
   #print "sleeping \n";
   #sleep (3);
   print "\n\n";
