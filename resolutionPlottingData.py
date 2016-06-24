@@ -108,9 +108,9 @@ class plotResolutions:
       plt.legend(loc='best')
       E=[]
       res=[]
-  def single_zenith(self,zenith, wobble, noise, resolution,figure=0,atm=21,color='k',marker='o'):
+  def single_zenith(self,zenith, wobble, noise, resolution,figure=0,atm=21,color='k',marker='o',extra_label=""):
     E,res=self.d.get_EvRes_frozen_params(atm,zenith,wobble,noise,resolution)
-    self.add_single_sim(E,res,figure,color=color,marker=marker,label=str(zenith)+" "+self.method_label)
+    self.add_single_sim(E,res,figure,color=color,marker=marker,label=str(zenith)+" "+self.method_label+" "+extra_label)
     plt.legend(loc='best')
 
 def main(argv):
