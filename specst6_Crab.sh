@@ -25,15 +25,20 @@ echo
 
 $vroot/bin/vaStage6 \
     -OverrideEACheck=1   -S6A_Batch=1 \
-    -EA_UpdateModifiedEffectiveArea=1 -EA_RealSpectralIndex=-3.25 \
+    -EA_UpdateModifiedEffectiveArea=1 -EA_RealSpectralIndex=-2.8 \
     -EA_WindowSizeForNoise=7 \
     -S6A_ReadFromStage4=false -S6A_ReadFromStage5Combined=1 \
     -S6A_Spectrum=1 \
     -S6A_UpperLimit=0 \
-    -SP_EnergyBinning=4 \
-    -SP_ForceFitRange=0 \
+    -SP_MinEnergy=0.30 \
+    -SP_MaxEnergy=1 \
+    -SP_NumberOfBins=4\
+    -SP_EnergyBinning=1\
+    -SP_ForceFitRange=1 \
     -SP_SpectrumFitFunc=POWERLAW \
     -SP_IntegralFluxEmin=0.2 \
+    -SP_FitNormEnergy=5 \
+    -S6A_RingSize=0.1\
     -S6A_ConfigDir=$CONFDIR -S6A_OutputFileName=res_$LOGFILE \
     -S6A_ExcludeSource=1 -S6A_SourceExclusionRadius=0.4 \
     -S6A_StarExclusionBMagLimit=6 \

@@ -18,14 +18,14 @@ $suffix=$ARGV[1];
 @noises=("350", "400");
 
 $dir="/a/data/tehanu/dribeiro/${sourcename}/2_5_4/";
-$runlistdir="/a/home/tehanu/dribeiro/Analysis/${sourcename}/runlists/Classes/";
+$runlistdir="/a/home/tehanu/dribeiro/Analysis/${sourcename}/runlists/Classes";
 
 $cuts="med-com";
 
 chdir $runlistdir;
 
 ($strlead = qq{
-gROOT->ProcessLine(".L /a/home/tehanu/omw2107/classes/vegasAnalysis.cpp");
+gROOT->ProcessLine(".L /a/home/tehanu/dribeiro/bin/classes/vegasAnalysis.cpp");
 vector <float> bin;
 vector <float> res;
 vector <float> rms;
