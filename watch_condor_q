@@ -1,9 +1,7 @@
 if [ "$#" -gt 0 ]; then
   time=$1
-  return
 else
   time=3
-  return
 fi
 
 while true; do
