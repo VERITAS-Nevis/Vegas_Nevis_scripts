@@ -274,9 +274,9 @@ if [ $st4code -gt 0 ]; then
     # Stage 4 medium cuts
     if [ $st4cuts -eq 1 -o $st4cuts -eq 3 ]; then
 	echo Running Stage 4 with Medium Cuts...
-	#cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root
+	cp ${outdir}/${dataRun}s2.root $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root
 	echo "$vegas/bin/vaStage4.2 $stage4options $stage4optionsMed -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root  >& $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log"
-	#$vegas/bin/vaStage4.2 $stage4options $stage4optionsMed -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root  >& $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log
+	$vegas/bin/vaStage4.2 $stage4options $stage4optionsMed -table $stage4table -save_config=$st4cfg -save_cuts=$st4cut $outdir/${dataRun}s4-med${HFitCuts}${suffix4}.root  >& $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log
 	cat $st4cfg >> $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log
 	rm $st4cfg
 	cat $st4cut >> $outdir/Log/log${dataRun}s4-med${HFitCuts}${suffix4}.log

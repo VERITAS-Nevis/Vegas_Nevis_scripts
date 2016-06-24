@@ -23,7 +23,7 @@ $stagecode = $ARGV[2];   # Stages to run the analysis on
                          # 
                          # 
 #@epochs=("oa", "na", "ua");
-@epochs=("ua");
+@epochs=("na");
 #@wobbles=("000", "025", "050", "075", "100", "125", "150", "175", "200");
 @wobbles=("000", "025", "050", "075", "100", "125", "150", "175", "200");
 #@atms=("21", "22");
@@ -310,7 +310,7 @@ for ( $i=0; $i<$ntot; $i++ ) {
     #print "  local size = ".$fileSize."\n";
   }
   # Check remote file size?
-  $checkRemote=0;
+  $checkRemote=1;
   if ( $checkRemote ) {
   $command="bbftp -w 50065 -m -p 1 -u bbftp -V -S -e \"stat ".$Sarchivefiles[$i].
   "\" gamma1.astro.ucla.edu";
