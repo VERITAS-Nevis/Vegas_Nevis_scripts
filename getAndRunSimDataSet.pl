@@ -21,9 +21,21 @@ $stagecode = $ARGV[2];   # Stages to run the analysis on
 #  6 - cuts to run at st4? 0=soft, 1=med, 2=hard, 3=all
 #  7 - epoch of data 4=V4, 5=V5, 6=V6
                          # 
-                         # 
-#@epochs=("oa", "na", "ua");
-@epochs=("na");
+if ( substr($stagecode,7,1) eq '5') {
+@epochs=("ua");
+}
+elsif( substr($stagecode,7,1) eq '6') 
+{
+@epochs=("ua");
+}
+elsif( substr($stagecode,7,1) eq '4') 
+{
+@epochs=("oa");
+}
+else
+{
+}
+
 #@wobbles=("000", "025", "050", "075", "100", "125", "150", "175", "200");
 @wobbles=("000", "025", "050", "075", "100", "125", "150", "175", "200");
 #@atms=("21", "22");
@@ -391,7 +403,7 @@ for ( $i=0; $i<$ntot; $i++ ) {
   print SCRIPT "User = ".$ENV{'USER'}."\n";
   print SCRIPT "queue 1\n";
   close SCRIPT;
-  system "condor_submit $runparamscript\n";
+  #system "condor_submit $runparamscript\n";
   #print "sleeping \n";
   #sleep (3);
   print "\n\n";
