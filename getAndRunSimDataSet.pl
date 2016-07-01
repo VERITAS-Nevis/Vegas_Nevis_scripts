@@ -22,7 +22,7 @@ $stagecode = $ARGV[2];   # Stages to run the analysis on
 #  7 - epoch of data 4=V4, 5=V5, 6=V6
                          # 
 if ( substr($stagecode,7,1) eq '5') {
-@epochs=("ua");
+@epochs=("na");
 }
 elsif( substr($stagecode,7,1) eq '6') 
 {

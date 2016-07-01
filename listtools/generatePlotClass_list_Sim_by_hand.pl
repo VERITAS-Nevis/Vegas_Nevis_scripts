@@ -25,7 +25,7 @@ $cuts="med-com";
 chdir $runlistdir;
 
 ($strlead = qq{
-gROOT->ProcessLine(".L /a/home/tehanu/dribeiro/bin/classes/vegasAnalysis.cpp");
+gROOT->ProcessLine(".L /a/home/tehanu/dribeiro/software/veritas/classes/vegasAnalysis.cpp");
 vector <float> bin;
 vector <float> res;
 vector <float> rms;
