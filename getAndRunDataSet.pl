@@ -458,17 +458,18 @@ for ( $i=0; $i<$ntot; $i++ ) {
 
     # Build the analysis script and submit the job
     chdir $douts[$si];
-    $runparamscript = $douts[$si]."/".$paramscript."_".$drun;
+    $runparamscript = $douts[$si]."/".$paramscript."_".$stagecode."_".$drun;
     copy($scriptdir."/".$paramscript, $runparamscript) or
-	die "Cannot copy ".$scriptdir."/".$paramscript." to ".$runparamscript;
+  	  die "Cannot copy ".$scriptdir."/".$paramscript." to ".$runparamscript;
     if ( ! open SCRIPT, ">>", $runparamscript )
     {
-	die "Cannot open $runparamscript: $!";
+    	die "Cannot open $runparamscript: $!";
     }
-    print SCRIPT "Requirements = Memory > 1000 && machine == \"$servers[$si].nevis.columbia.edu\"\n";
-    print SCRIPT "output = $douts[$si]/Para_$drun.out\n";
-    print SCRIPT "error  = $douts[$si]/Para_$drun.err\n";
-    print SCRIPT "log    = $douts[$si]/Para_$drun.log\n";
+    #print SCRIPT "Requirements = Memory > 1000 && machine == \"$servers[$si].nevis.columbia.edu\"\n";
+    print SCRIPT "output = $douts[$si]/Para_$stagecode._$drun.out\n";
+    print SCRIPT "error  = $douts[$si]/Para_$stagecode._$drun.err\n";
+    print SCRIPT "log    = $douts[$si]/Para_$stagecode._$drun.log\n";
+    print SCRIPT "Notification = Error\n";
     print SCRIPT "initialdir = $douts[$si]\n";
     print SCRIPT "RunNumber = $drun\n";
     print SCRIPT "OutDir = $douts[$si]\n";

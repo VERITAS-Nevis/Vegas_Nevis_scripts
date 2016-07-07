@@ -106,8 +106,15 @@ echo Stage2 options = $stage2options
 #stage4optionsMed=" -cuts $CUTSDIR/gc.cut -LTM_WindowSizeForNoise=7 -DR_Algorithm=Method5 -DR_DispTable=$DT/dt_Nov2010_na_ATM22_7samples_vegasv240rc1_LZA.root "
 #stage4optionsMed=" -cuts $CUTSDIR/med.cut -LTM_WindowSizeForNoise=7 "
 
+if [ "${dataRun:0:6}" -eq "Oct2012"]; then
+  sim=1
+  echo "Using simulation Model Oct2012"
+else
+  sim=0
+  echo "Not using simulations"
+fi
 
-stage4options="-G_SimulationMode=1 -G_GlobalProgressPrintFrequency=50000 -LTM_WindowSizeForNoise=7 -DR_DispTable=$disptable -OverrideLTCheck=1"
+stage4options="-G_SimulationMode=$sim -G_GlobalProgressPrintFrequency=50000 -LTM_WindowSizeForNoise=7 -DR_DispTable=$disptable -OverrideLTCheck=1"
 #if [ $epoch -eq 4 ]; then
 #    if [ $dataRun -lt 36000 ]; then
 #        stage4options=$stage4options" -TelCombosToDeny=ANY2 "
@@ -198,7 +205,7 @@ stage5options="-G_GlobalProgressPrintFrequency=50000 \
     $timeCut \
     -SaveDiagnostics=1 \
     -ImpactDistanceUpper=300 \
-    -G_SimulationMode=1"
+    -G_SimulationMode=$sim"
 #    -MeanScaledWidthLower=-1 \
 #    -MeanScaledWidthUpper=10 \
 #    -MeanScaledLengthLower=-1 \
