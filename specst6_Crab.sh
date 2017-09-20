@@ -28,7 +28,7 @@ $vroot/bin/vaStage6 \
     -EA_UpdateModifiedEffectiveArea=1 -EA_RealSpectralIndex=-2.8 \
     -EA_WindowSizeForNoise=7 \
     -S6A_ReadFromStage4=false -S6A_ReadFromStage5Combined=1 \
-    -S6A_Spectrum=1 \
+    -S6A_Spectrum=0 \
     -S6A_UpperLimit=0 \
     -SP_MinEnergy=0.30 \
     -SP_MaxEnergy=1 \
