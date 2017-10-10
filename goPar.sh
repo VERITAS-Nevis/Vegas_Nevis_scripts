@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 . ${NevisAppBase}/adm/nevis-init.sh
 
@@ -204,7 +205,6 @@ stage5options="-G_GlobalProgressPrintFrequency=50000 \
     -RemoveCutEvents=1 \
     $timeCut \
     -SaveDiagnostics=1 \
-    -ImpactDistanceUpper=300 \
     -G_SimulationMode=$sim"
 #    -MeanScaledWidthLower=-1 \
 #    -MeanScaledWidthUpper=10 \
@@ -306,7 +306,7 @@ if [ $st4code -gt 0 ]; then
     fi
 fi
 
-extrasuffix5="_ImpactCut"
+extrasuffix5=""
 suffix="$suffix4$extrasuffix5"
 
 # Run Stage 5 regular

@@ -24,31 +24,26 @@ echo
 echo
 
 $vroot/bin/vaStage6 \
-    -OverrideEACheck=1   -S6A_Batch=1 \
-    -EA_UpdateModifiedEffectiveArea=1 -EA_RealSpectralIndex=-2.8 \
+    -OverrideEACheck=1   -S6A_Batch=0 \
+    -EA_UpdateModifiedEffectiveArea=1 -EA_RealSpectralIndex=-2.4 \
     -EA_WindowSizeForNoise=7 \
     -S6A_ReadFromStage4=false -S6A_ReadFromStage5Combined=1 \
-    -S6A_Spectrum=0 \
-    -S6A_UpperLimit=0 \
-    -SP_MinEnergy=0.30 \
-    -SP_MaxEnergy=1 \
-    -SP_NumberOfBins=4\
-    -SP_EnergyBinning=1\
-    -SP_ForceFitRange=1 \
+    -S6A_Spectrum=1 \
+    -S6A_UpperLimit=1 \
     -SP_SpectrumFitFunc=POWERLAW \
     -SP_IntegralFluxEmin=0.2 \
-    -SP_FitNormEnergy=5 \
+    -SP_FitNormEnergy=1 \
     -S6A_RingSize=0.1\
     -S6A_ConfigDir=$CONFDIR -S6A_OutputFileName=res_$LOGFILE \
-    -S6A_ExcludeSource=1 -S6A_SourceExclusionRadius=0.4 \
+    -S6A_ExcludeSource=1 -S6A_SourceExclusionRadius=0.3 \
     -S6A_StarExclusionBMagLimit=6 \
     -S6A_StarExclusionRadius=0 \
     -S6A_NumRings=0 \
     -EC_maxPsiSq=2.89 \
     -S6A_DoRelativeExposure=0 \
     -S6A_SuppressRBMFinalStage=0 \
-    -RBM_HistoBinSizeInDegrees=0.025 \
-    -WA_UseGeneralizedLiMa=0 \
+    -RBM_HistoBinSizeInDegrees=0.025 -RBM_SearchWindowSqCut=0.01 \
+    -WA_UseGeneralizedLiMa=1 \
     -WA_Theta2HistNbins=400 \
     -S6A_DrawExclusionRegions=3 \
     -save_config=tmpv6_${LOGFILE}.cfg \
