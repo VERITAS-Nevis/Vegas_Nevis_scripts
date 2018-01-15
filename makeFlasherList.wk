@@ -1,2 +1,0 @@
-BEGIN { last=0; }
-$1>0&&$2>0&&$2!=last { print $2; last=$2; }
