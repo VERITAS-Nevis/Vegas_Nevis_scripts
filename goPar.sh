@@ -6,7 +6,7 @@ set -x
 HOME=/a/home/tehanu/$USER
 
 CUTSDIR=${HOME}/Analysis/Cuts
-export ROOTSYS=/usr/nevis/root-05.34.23
+#export ROOTSYS=/usr/nevis/root-05.34.23
 export PATH=$ROOTSYS/bin:$PATH
 export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
 
@@ -43,7 +43,7 @@ st2opt=${stcode:5:1}
 st4cuts=${stcode:6:1}
 epoch=${stcode:7:1}
 
-vegas=/a/home/tehanu/ap3115/software/veritas/vegas-v$version
+vegas=/a/data/tehanu/dribeiro/software/veritas/VEGAS/
 
 echo ==============================================================
 date
