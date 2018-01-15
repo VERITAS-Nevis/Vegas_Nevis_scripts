@@ -6,7 +6,7 @@ stage=$3
 
 while read line           
 do           
-    find -L ${dir} -maxdepth 1 -iname "*${line}*${stage}*" -exec readlink {} \;| sort --version-sort 
+    find -L ${dir} -iname "*${line}*${stage}*" ! -iname "*log*" -exec readlink {} \;| sort --version-sort 
     echo " "
     done <$runlist
 
