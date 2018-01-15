@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd /a/home/tehanu/dribeiro/Analysis/
-vroot=/a/data/tehanu/dribeiro/software/veritas/VEGAS/
+vroot=/a/data/tehanu/dribeiro/software/veritas/vegas_symlink
 
 if [ "$HOSTNAME" = "tehanu.nevis.columbia.edu" ]
     then
@@ -28,8 +28,9 @@ echo
 $vroot/bin/vaStage6 \
     -OverrideEACheck=1   -S6A_Batch=0 \
     -S6A_ReadFromStage4=false -S6A_ReadFromStage5Combined=0 \
+    -S6A_TestPositionRA=19.215 -S6A_TestPositionDEC=68.682 \
     -S6A_DoTimedLikelihoodRBM=1 -TDRBM_lightCurveType="PowerLaw" \
-    -TDRBM_tOrigin=56409.32496528 -TDRBM_lightCurveShapeParameter=-1 \
+    -TDRBM_tOrigin=58131.11604931  -TDRBM_lightCurveShapeParameter=-1 \
     -S6A_Spectrum=1 \
     -S6A_UpperLimit=1 \
     -SP_SpectrumFitFunc=POWERLAW \
