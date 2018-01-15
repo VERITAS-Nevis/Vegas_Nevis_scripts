@@ -6,7 +6,7 @@ source /usr/nevis/adm/nevis-init.sh
 
 HOME=/a/home/tehanu/$USER
 
-export ROOTSYS=/usr/nevis/root-05.34.23
+#export ROOTSYS=/usr/nevis/root-05.34.23
 export PATH=$ROOTSYS/bin:$PATH
 export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
 
@@ -21,7 +21,7 @@ OutLocal=/data/$USER/Flasher/$version
 OutLocalFile=$OutLocal/$RunNumber.root
 LogFile=$OutLocal/$RunNumber.log
 
-vegas=/a/home/tehanu/ap3115/software/veritas/vegas-v$version
+vegas=/a/data/tehanu/dribeiro/software/veritas/VEGAS
 
 stage1options="-QSCTD_MinSumWinWidth=2 -QSCTD_MaxSumWinWidth=12 "
 #stage1options="-QSCTD_MinSumWinWidth=7 -QSCTD_MaxSumWinWidth=12 -BCI_TraceVarWindow=7 -RGCF_Algorithm=RelGainCalcSimple"

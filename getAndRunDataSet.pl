@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 use File::Copy;
+use File::Path qw(make_path remove_tree);
 
 # Last update: added auto-creation of some source dirs, probably not all!!
 
@@ -42,7 +43,7 @@ $timeCuts = "/a/home/tehanu/".$ENV{'USER'}."/Analysis/Cuts/timeCuts.txt";
 
 $tehanuFlashers = "/a/data/tehanu/".$ENV{'USER'}."/Flasher/".$version;
 unless ( -d $tehanuFlashers ) {
-    mkdir $tehanuFlashers or die "Cannot create directory $tehanuFlashers: \'$!\'";
+    make_path($tehanuFlashers) or die "Cannot create directory $tehanuFlashers: \'$!\'";
 }
 
 # Set up the paths on the analysis/storage servers.
@@ -51,32 +52,32 @@ $nServ = 3;
 for $server (@servers) {
     $raw1 = "/a/data/".$server."/Raw/Flasher";
     unless ( -d $raw1 ) {
-	mkdir -p $raw1 or die "Cannot create directory $raw1";
+	make_path($raw1) or die "Cannot create directory $raw1";
     }
     @fraws = ( @fraws, $raw1 );
     $out1 = "/a/data/".$server."/".$ENV{'USER'}."/Flasher/".$version;
     unless ( -d $out1 ) {
-	mkdir -p $out1 or die "Cannot create directory $out1: \'$!\'";
+	make_path($out1) or die "Cannot create directory $out1: \'$!\'";
     }
     unless ( -d "$out1/Log" ) {
-	mkdir -p "$out1/Log" or die "Cannot create directory $out1/Log: \'$!\'";
+	make_path("$out1/Log") or die "Cannot create directory $out1/Log: \'$!\'";
     }
     @fouts = ( @fouts, $out1 );
     $raw1 = "/a/data/".$server."/Raw/".$sourcename;
     unless ( -d $raw1 ) {
-	mkdir -p $raw1 or die "Cannot create directory $raw1";
+	make_path($raw1) or die "Cannot create directory $raw1";
     }
     @draws = ( @draws, $raw1 );
     $out1 = "/a/data/".$server."/".$ENV{'USER'}."/".$sourcename;
     unless ( -d $out1 ) {
-	mkdir -p $out1 or die "Cannot create directory $out1";
+	make_path($out1) or die "Cannot create directory $out1";
     }
     $out1 = "/a/data/".$server."/".$ENV{'USER'}."/".$sourcename."/".$version;
     unless ( -d $out1 ) {
-	mkdir -p $out1 or die "Cannot create directory $out1";
+	make_path($out1) or die "Cannot create directory $out1";
     }
     unless ( -d "$out1/Log" ) {
-	mkdir -p "$out1/Log" or die "Cannot create directory $out1/Log";
+	make_path("$out1/Log") or die "Cannot create directory $out1/Log";
     }
     @douts = ( @douts, $out1 );
 }
@@ -84,13 +85,13 @@ for $server (@servers) {
 # Make sure critical directories exist.
 $out1 = "/data/".$ENV{'USER'}."/".$sourcename;
 unless ( -d $out1 ) {
-    mkdir -p  $out1 or die "Cannot create directory $out1";
+    make_path($out1) or die "Cannot create directory $out1";
 }
 unless ( -d $lndir ) {
-    mkdir -p  $lndir or die "Cannot create directory $lndir";
+    make_path($lndir) or die "Cannot create directory $lndir";
 }
 unless ( -d "$lndir/Log" ) {
-    mkdir -p "$lndir/Log" or die "Cannot create directory $lndir/Log";
+    make_path("$lndir/Log") or die "Cannot create directory $lndir/Log";
 }
 
 
@@ -202,17 +203,19 @@ while (<LIST>)
 	if ( $dataDate > 20120801 ) { # fix for some V6 tables
 	    $extrabit = "_noise150fix";
 	}
-        elsif ( $dataDate > 20090801 ) { # fix for V5 tables
+        elsif ( $dataDate > 20090801 && $atm eq '21') { # fix for V5 tables
             $extrabit = "_v1";
         }
     }
 # Set lookup tables, first checking what kind of analysis specific in command
  
     if ( (substr($stagecode,1,1) eq '2') || ( substr($stagecode,1,1) eq '4') ) { # HFit lookup tables
-	$alt = "/a/data/tehanu/ap3115/LTs/vegas-2.5/lt_Oct2012_".$epoch."_ATM".$atm."_7samples_hfit_vegasv251_050wobb_LZA.root";
+	#$alt = "/a/data/tehanu/ap3115/LTs/vegas-2.5/lt_Oct2012_".$epoch."_ATM".$atm."_7samples_hfit_vegasv251_050wobb_LZA.root";
+	$alt = "/a/data/tehanu/dribeiro/LTs/vegas-2.5/lt_Oct2012_".$epoch."_ATM".$atm."_7samples_hfit_vegasv251_050wobb_LZA.root";
     }
     else { # regular lookup tables
-	$alt = "/a/data/tehanu/ap3115/LTs/vegas-2.5/lt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_".$offs."_LZA".$extrabit.".root";
+	#$alt = "/a/data/tehanu/ap3115/LTs/vegas-2.5/lt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_".$offs."_LZA".$extrabit.".root";
+	$alt = "/a/data/tehanu/dribeiro/LTs/vegas-2.5/lt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_".$offs."_LZA".$extrabit.".root";
 #	$alt = "/a/data/tehanu/ap3115/LTs/vegas-2.5/lt_Oct2012_ua_ATM21_7samples_vegasv250rc5_050wobb_LZA.root";
 #	$adt = "/a/data/tehanu/ap3115/DTs/vegas-2.5/rc4/dt_Oct2012_ua_ATM21_7samples_vegasv250rc4_050wobb_LZA.root";
 #	$alt = "/a/data/tehanu/ap3115/LTs/vegas-2.5/lt_Oct2012_ua_ATM22_7samples_vegasv250rc5_050wobb_LZA.root";
@@ -220,10 +223,11 @@ while (<LIST>)
     }
        
         if ( substr($stagecode,2,1) eq '1') { #geo - no table necessary
-          $adt = ""; 
+          $adt = "-"; 
           }
         elsif ( substr($stagecode,2,1) eq '2'){ #disp old - old table
-          $adt = "/a/data/tehanu/humensky/DTs/vegas-2.5/dt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_050wobb_LZA.root"; 
+          #$adt = "/a/data/tehanu/humensky/DTs/vegas-2.5/dt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_050wobb_LZA.root"; 
+          $adt = "/a/data/tehanu/dribeiro/DTs/vegas-2.5/dt_Oct2012_".$epoch."_ATM".$atm."_7samples_vegasv250rc5_050wobb_LZA.root"; 
           }
         elsif ( substr($stagecode,2,1) eq '3'){ #disp new
           $adt = "/a/data/tehanu/dribeiro/DTs/TMVA_Disp.xml"; #need this for disp_new

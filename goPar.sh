@@ -1,11 +1,12 @@
 #!/bin/bash
+set -x
 
 . ${NevisAppBase}/adm/nevis-init.sh
 
 HOME=/a/home/tehanu/$USER
 
 CUTSDIR=${HOME}/Analysis/Cuts
-export ROOTSYS=/usr/nevis/root-05.34.23
+#export ROOTSYS=/usr/nevis/root-05.34.23
 export PATH=$ROOTSYS/bin:$PATH
 export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
 
@@ -42,7 +43,7 @@ st2opt=${stcode:5:1}
 st4cuts=${stcode:6:1}
 epoch=${stcode:7:1}
 
-vegas=/a/home/tehanu/ap3115/software/veritas/vegas-v$version
+vegas=/a/data/tehanu/dribeiro/software/veritas/VEGAS/
 
 echo ==============================================================
 date
@@ -204,7 +205,6 @@ stage5options="-G_GlobalProgressPrintFrequency=50000 \
     -RemoveCutEvents=1 \
     $timeCut \
     -SaveDiagnostics=1 \
-    -ImpactDistanceUpper=300 \
     -G_SimulationMode=$sim"
 #    -MeanScaledWidthLower=-1 \
 #    -MeanScaledWidthUpper=10 \
@@ -306,7 +306,7 @@ if [ $st4code -gt 0 ]; then
     fi
 fi
 
-extrasuffix5="_ImpactCut"
+extrasuffix5=""
 suffix="$suffix4$extrasuffix5"
 
 # Run Stage 5 regular
