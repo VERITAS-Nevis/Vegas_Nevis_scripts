@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd /a/home/tehanu/dribeiro/Analysis/
-vroot=/a/data/tehanu/dribeiro/software/veritas/vegas_symlink
+vroot=/a/data/tehanu/dribeiro/software/veritas/vegas_symlink/
 
 if [ "$HOSTNAME" = "tehanu.nevis.columbia.edu" ]
     then
@@ -22,30 +22,27 @@ echo "   Starting at " $( date )
 echo "   Using vegas version in "$vroot
 echo
 echo
-#    -S6A_DoTimedLikelihoodRBM=1 -TDRBM_lightCurveType="PowerLaw" \
-#    -TDRBM_tOrigin=56409.32496528 -TDRBM_lightCurveShapeParameter=-1 \
+#    -S6A_DoTimedLikelihoodRBM=1 -TDRBM_lightCurveType="Exponential" \
+#    -TDRBM_tOrigin=55740.431 -TDRBM_lightCurveShapeParameter=-13000 \
 
 $vroot/bin/vaStage6 \
-    -OverrideEACheck=1   -S6A_Batch=0 \
+    -OverrideEACheck=1   -S6A_Batch=1 \
     -S6A_ReadFromStage4=false -S6A_ReadFromStage5Combined=0 \
-    -S6A_TestPositionRA=19.215 -S6A_TestPositionDEC=68.682 \
-    -S6A_DoTimedLikelihoodRBM=1 -TDRBM_lightCurveType="PowerLaw" \
-    -TDRBM_tOrigin=58131.11604931  -TDRBM_lightCurveShapeParameter=-1 \
     -S6A_Spectrum=1 \
     -S6A_UpperLimit=1 \
     -SP_SpectrumFitFunc=POWERLAW \
     -SP_IntegralFluxEmin=0.2 \
     -SP_FitNormEnergy=1 \
-    -S6A_RingSize=0.14\
+    -S6A_RingSize=0.17\
     -S6A_ConfigDir=$CONFDIR -S6A_OutputFileName=res_$LOGFILE \
     -S6A_ExcludeSource=1 -S6A_SourceExclusionRadius=0.3 \
-    -S6A_StarExclusionBMagLimit=7 \
+    -S6A_StarExclusionBMagLimit=6 \
     -S6A_StarExclusionRadius=0 \
     -S6A_NumRings=0 \
     -EC_maxPsiSq=2.89 \
     -S6A_DoRelativeExposure=0 \
     -S6A_SuppressRBMFinalStage=0 \
-    -RBM_HistoBinSizeInDegrees=0.025 -RBM_SearchWindowSqCut=0.02 \
+    -RBM_HistoBinSizeInDegrees=0.025 -RBM_SearchWindowSqCut=0.03 \
     -WA_UseGeneralizedLiMa=1 \
     -WA_Theta2HistNbins=400 \
     -S6A_DrawExclusionRegions=3 \
