@@ -23,16 +23,16 @@ echo "   Using vegas version in "$vroot
 echo
 echo
 #    -S6A_DoTimedLikelihoodRBM=1 -TDRBM_lightCurveType="PowerLaw" \
-#    -TDRBM_tOrigin=56409.32496528 -TDRBM_lightCurveShapeParameter=-1 \
+#    -TDRBM_tOrigin=58217.34612269  -TDRBM_lightCurveShapeParameter=-1 \
 
 $vroot/bin/vaStage6 \
     -OverrideEACheck=1   -S6A_Batch=0 \
     -S6A_ReadFromStage4=false -S6A_ReadFromStage5Combined=0 \
-    -S6A_TestPositionRA=173.350 -S6A_TestPositionDEC=32.533 \
+    -S6A_TestPositionRA=178.180 -S6A_TestPositionDEC=+36.050 \
     -S6A_DoTimedLikelihoodRBM=1 -TDRBM_lightCurveType="PowerLaw" \
     -TDRBM_tOrigin=58217.34612269  -TDRBM_lightCurveShapeParameter=-1 \
-    -S6A_Spectrum=0 \
-    -S6A_UpperLimit=0 \
+    -S6A_Spectrum=1 \
+    -S6A_UpperLimit=1 \
     -SP_SpectrumFitFunc=POWERLAW \
     -SP_IntegralFluxEmin=0.2 \
     -SP_FitNormEnergy=1 \
