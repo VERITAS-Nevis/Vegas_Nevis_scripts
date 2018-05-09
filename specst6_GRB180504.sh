@@ -28,7 +28,9 @@ echo
 $vroot/bin/vaStage6 \
     -OverrideEACheck=1   -S6A_Batch=0 \
     -S6A_ReadFromStage4=false -S6A_ReadFromStage5Combined=0 \
-    -S6A_TestPositionRA=220.230 -S6A_TestPositionDEC=38.720 \
+    -S6A_TestPositionRA=220.200 -S6A_TestPositionDEC=39.970 \
+    -S6A_DoTimedLikelihoodRBM=1 -TDRBM_lightCurveType="PowerLaw" \
+    -TDRBM_tOrigin=58242.13603970  -TDRBM_lightCurveShapeParameter=-1 \
     -S6A_Spectrum=0 \
     -S6A_UpperLimit=0 \
     -SP_SpectrumFitFunc=POWERLAW \
