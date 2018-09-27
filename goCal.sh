@@ -21,7 +21,7 @@ OutLocal=/data/$USER/Flasher/$version
 OutLocalFile=$OutLocal/$RunNumber.root
 LogFile=$OutLocal/$RunNumber.log
 
-vegas=/a/data/tehanu/dribeiro/software/veritas/VEGAS
+vegas= /a/data/tehanu/dribeiro/software/veritas/vegas_symlink/
 
 stage1options="-QSCTD_MinSumWinWidth=2 -QSCTD_MaxSumWinWidth=12 "
 #stage1options="-QSCTD_MinSumWinWidth=7 -QSCTD_MaxSumWinWidth=12 -BCI_TraceVarWindow=7 -RGCF_Algorithm=RelGainCalcSimple"

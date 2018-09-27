@@ -43,7 +43,7 @@ st2opt=${stcode:5:1}
 st4cuts=${stcode:6:1}
 epoch=${stcode:7:1}
 
-vegas=/a/data/tehanu/dribeiro/software/veritas/VEGAS/
+vegas=/a/data/tehanu/dribeiro/software/veritas/vegas_symlink/
 
 echo ==============================================================
 date
