@@ -30,8 +30,8 @@ $vroot/bin/vaStage6 \
     -S6A_ReadFromStage4=false -S6A_ReadFromStage5Combined=0 \
     -S6A_TestPositionRA=173.4231 -S6A_TestPositionDEC=0.7258 \
     -S6A_DoTimedLikelihoodRBM=0 \
-    -S6A_Spectrum=0 \
-    -S6A_UpperLimit=0 \
+    -S6A_Spectrum=1 \
+    -S6A_UpperLimit=1 \
     -SP_SpectrumFitFunc=POWERLAW \
     -SP_IntegralFluxEmin=0.2 \
     -SP_FitNormEnergy=1 \

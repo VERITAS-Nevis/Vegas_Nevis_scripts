@@ -6,3 +6,4 @@
 *.eps
 *.root
 *.pyc
+.idea/*
